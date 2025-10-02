@@ -1,2 +1,2 @@
-# SI
-Sistemas informaticos
+# PR
+Programación
