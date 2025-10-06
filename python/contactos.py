@@ -7,9 +7,7 @@ while contacto !="fin":
         numero=input("Escribe su número telefonico.")
         listaContactos[contacto]=numero
     else:
-        n=int(0)
         for nAgenda in listaContactos:
-            n=n+1
-            print(n, ". ", (nAgenda))
+           print("-",nAgenda)
 m=input("Selecciona el contacto que quieras ver.\n")
 print(listaContactos[m])
