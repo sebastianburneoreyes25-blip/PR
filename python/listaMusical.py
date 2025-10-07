@@ -10,5 +10,5 @@ while pista!="fin":
             n=n+1
             print(n, ". ", (cancion))
 m=int(input("Selecciona el numero de la cancion a reproducir. "))
-print(playlist[m])
+print(playlist[(m-1)])
     
