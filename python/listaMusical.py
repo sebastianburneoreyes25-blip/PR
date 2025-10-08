@@ -8,7 +8,7 @@ while pista!="fin":
         n=0
         for cancion in playlist:
             n=n+1
-            print(n, ". ", (cancion))
-m=int(input("Selecciona el numero de la cancion a reproducir. "))
+            print(f"{n}. {cancion}")
+m=int(input("Selecciona el numero de la cancion a reproducir. \n"))
 print(playlist[(m-1)])
     
