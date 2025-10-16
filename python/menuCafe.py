@@ -7,9 +7,10 @@ menu={
 }
 
 #Imprimimos el menu
-menu=comida,(a,b)
-(a,b) =comida
+i='Café'
+a,b=i
 for i in menu:
+	a,b=i
 	print(f"-{i}: {a}€ {b}Cal")
 
 #El usuario elije algo del menu, si escribre algo que no este en el, le volvera a pedir introducir los datos.
@@ -21,11 +22,11 @@ pedido=[]
 while selec_l!="fin":
 	if selec in menu:
 		#Sumamos precio y calorias
-		for a,(b,c) in menu.items():
-			if a == selec:
+		for i,(b,c) in menu.items():
+			if i == selec:
 				precio+=float(b)	
 				calorias+=c
-				pedido.append(a)
+				pedido.append(i)
 		selec=input("Añade productos del menú, para finalizar escribe fin.\n")
 		selec_l=selec.lower()
 	else:
