@@ -18,8 +18,9 @@ def menuEleccion():
 	return a
 
 def calcularStock():
-	for p,(pr,s) in inventario.items:
-		stock_valor+=pr*s
+	stock_valor=0
+	for p,(pr,s) in inventario.items():
+		stock_valor+=(pr*s)
 	return stock_valor
 
 
@@ -61,7 +62,8 @@ while eleccion!="5":
 			mostarmenu()
 
 		case "4":
-			calcularStock()
+			valor_total= calcularStock()
+			print(f"{valor_total}€")
 
 		case "5":
 			print("Sayonara baby!!")
