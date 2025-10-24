@@ -163,7 +163,7 @@ def eliminarArtic(lista): #Funcion para borrar articulos por ID
     
 def alernarStatus(lista):
     n=0
-    idBuscar=input("Escribe el id del articulo a cambiar su estado.\n")
+    idBuscar=int(input("Escribe el id del articulo a cambiar su estado.\n"))
     for i in lista:
         if i["ID"]==idBuscar:
             i["Disponibilidad"]=disponibilidad()
