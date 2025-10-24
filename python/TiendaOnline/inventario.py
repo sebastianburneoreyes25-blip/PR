@@ -18,6 +18,8 @@ def mostrarMenu():  #Funcion para mostrar el menu de opciones
 def añadirADicc(articulo,a,b): #Añade un valor al dicc
     articulo[a]=b
 
+
+
 def crearArticulo(articulo,lista): #Funcion para agregar un articulo a la lista de articulos
     articulo=fichaArticulo(articulo)
     lista.append(articulo)
@@ -81,6 +83,7 @@ def disponibilidad():#Asignaremos un boolean para determinar si esta activo o in
 def mostrarArticulos(lista): #Funcion para mostrar el inventario
     valor=""
     s=int(input("Escribe 1 para mostrar solo activos, 0 para los incativos.\n")) #Se usara el numero usado para buscar True or False
+    m="1"
     if s==1:
         m=True
     elif s==0:
@@ -101,26 +104,31 @@ def buscarArticulo(lista): #Busca articulos por ID
     flag=False
     n=0
     idBuscar=input("Escribe el id a buscar.\n")
-    valor=""
-    for i in lista:
-        flag=False
-        for a,b in i.items():
-            if b==idBuscar:
-                flag=True
-            elif flag==True:
-                listar=f"{a} : {b}  "
-                valor+=listar
-        if flag==True:
-            print(valor)
-            n=1
-    if flag==False and n==0:
-        print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo") 
+    if not idBuscar.isalpha():
+        idBuscar=int(idBuscar)
+        valor=""
+        for i in lista:
+            flag=False
+            for a,b in i.items():
+                if b==idBuscar:
+                    flag=True
+                elif flag==True:
+                    listar=f"{a} : {b}  "
+                    valor+=listar
+                if flag==True:
+                    print(valor)
+                    n=1
+        if flag==False and n==0:
+            print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo") 
+    else:
+        print(f"El id {idBuscar} debe ser un numero")
 
 
 
 def actualizar(lista): #Funcion para actualizar
     flag=False
     n=0
+    print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Precio\n-Stock")
     idBuscar=input("Escribe el id del articulo a actualizar.\n") #Busca articulos por ID
     param=input("Escribe el parametro a actualizar.")  
     paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
@@ -175,8 +183,9 @@ def alernarStatus(lista):
     
 
 #Logica de programacion
-mostrarMenu()
-while eleccion!=7:
+
+while eleccion!="7":
+    mostrarMenu()
     eleccion=input("Elige una operacion.\n")
     match eleccion:
         case "1":
@@ -195,4 +204,4 @@ while eleccion!=7:
             print("Sayonara baby!!")
         case _:
             print("No entendi el comando. Prueba de nuevo")
-    mostrarMenu()
+    
