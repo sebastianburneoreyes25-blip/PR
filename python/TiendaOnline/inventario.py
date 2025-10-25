@@ -26,7 +26,7 @@ def menuUsuarios():  #Funcion para mostrar el menu de opciones de los usuario
     print("1.Crear usuario\n2.Listar usuario\n3.Buscar usuario por id.\n4.Actualizar usuario\n5.Eliminar usuario\n6.Alternar activo/inactivo\n7.Salir\n")
 
 def menuOpciones():#Función que nos permitira ir al menu de usuarios, de productos o salir de la app.
-    print("Elige el menu:\n-1.Articulos\n-2.Usuario\n-3.Ventas/Carrito\n4.Salir\n")
+    print("Elige el menu:\n-1.Articulos\n-2.Usuario\n-3.Ventas/Carrito\n-4.Salir\n")
 
 def menuVentas():#Funcion que nos permitira ver el menu de las opciones para las ventas y carrito
     print("VENTAS / CARRITO\n\n1.Seleccionar usuario activo\n2.Añadir articulo al carrito\n3.Quitar articulos del carrito\n4.Ver carito (detalles y total)\n5.Confirmar compra\n6.Historial de ventas por usuario\n7.Vaciar carrito\n8.Salir")
@@ -147,12 +147,12 @@ def actualizar(lista,tipo): #Funcion para actualizar
     if tipo=="2":
         print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Email\n")
     idBuscar=input("Escribe el id a actualizar.\n") #Busca  por ID
-    param=input("Escribe el parametro a actualizar.")  
-    paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
     flag=False
     for i in lista:
         flag=False
         if n!=1 and i["ID"]==idBuscar:
+            param=input("Escribe el parametro a actualizar.")  
+            paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
             for a,b in i.items():
                 al=a.lower()
                 if idBuscar==b:
@@ -211,9 +211,13 @@ def eliminar(lista): #Funcion para borrar articulos por ID
 def alernarStatus(lista):
     n=0
     idBuscar=int(input("Escribe el id a cambiar su estado.\n"))
+    flag=False
     for i in lista:
         if i["ID"]==idBuscar:
             i["Activo"]=disponibilidad()
+            flag=True
+    if flag==False:
+        print("Id no encontrado, pruebe de nuevo.\n")
 
 
 def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuario
@@ -271,7 +275,7 @@ def confirmarCompra(lista):
     pass
 
 #Logica de programacion
-while tipo!="3":
+while tipo!="4":
     tipo=""
     eleccion=""
     menuOpciones()
