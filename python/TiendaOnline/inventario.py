@@ -147,32 +147,35 @@ def actualizar(lista,tipo): #Funcion para actualizar
     if tipo=="2":
         print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Email\n")
     idBuscar=input("Escribe el id a actualizar.\n") #Busca  por ID
+    idBuscar=idNumerico(idBuscar)
     flag=False
     for i in lista:
         flag=False
         if n!=1 and i["ID"]==idBuscar:
-            param=input("Escribe el parametro a actualizar.")  
+            param=input("Escribe el parametro a actualizar.\n")  
             paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
             for a,b in i.items():
                 al=a.lower()
-                if idBuscar==b:
+                if i["ID"]==idBuscar:
                     flag=True
-                elif al==paraml:
-                    if tipo=="1":
-                        b=input(f"Escribe el nuevo {a}\n")
-                        if a=="Precio":
-                            b=float(b)
-                        i[a]=b
-                        flag=True
-                        n=1
-                    elif tipo=="2":
-                        if a=="Email":
-                            b=verificarMail()
-                        else:
+                    if al==paraml:
+                        if tipo=="1":
                             b=input(f"Escribe el nuevo {a}\n")
-                        i[a]=b
-                        flag=True
-                        n=1
+                            if paraml=="id":
+                                b=idNumerico(b)
+                            if a=="Precio":
+                                b=float(b)
+                            i[a]=b
+                            n=1
+                        elif tipo=="2":
+                            if a=="Email":
+                                b=verificarMail()
+                            elif paraml=="id":
+                                b=idNumerico(b)
+                            else:
+                                b=input(f"Escribe el nuevo {a}\n")
+                            i[a]=b
+                            n=1
     if flag==False and n==0:
         print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo") 
 
@@ -187,30 +190,24 @@ def verificarMail():#Funcion para verificar que el formato del mail es valido
     return valor
 
 def eliminar(lista): #Funcion para borrar articulos por ID
-    flag=False
-    n=0
+    flag=True
     idBuscar=input("Escribe el id a eliminar.\n")
-    while idBuscar.isalpha():
-        idBuscar=input("El ID debe ser numerico, escribelo de nuevo\n")
-    idBuscar=int(idBuscar)
+    idBuscar=idNumerico(idBuscar)
     for i in lista:
-        flag=False
         if i["ID"]==idBuscar:
-            flag=True
-        if flag==True:
             conf=input("Escribe 1 para confirmar la eliminacion, 2 para cancelar\n")
             if conf=="1":
                 lista.remove(i)
                 flag=False
-                n=1
-    if flag==False and n==0:
+    if flag==True:
         print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo")
-    if flag==False and n==1:
+    if flag==False:
         print(f"El producto con id {idBuscar} se ha eliminado.")  
     
 def alernarStatus(lista):
     n=0
-    idBuscar=int(input("Escribe el id a cambiar su estado.\n"))
+    idBuscar=input("Escribe el id a cambiar su estado.\n")
+    idBuscar=idNumerico(idBuscar)
     flag=False
     for i in lista:
         if i["ID"]==idBuscar:
@@ -250,7 +247,7 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 n+=1
     return user  
 
-def userSelect(diccionario,lista):
+def userSelect(diccionario,lista,n):
     id=""
     id=input("Escribe el ID del usuario a seleccionar\n")
     while id.isalpha():
@@ -259,7 +256,7 @@ def userSelect(diccionario,lista):
     diccionario={}
     flag=True
     for i in lista:
-        if i["ID"] ==id and i["Activo"]==True:
+        if i["ID"] ==id and i["Activo"]==True and n==0:
             diccionario=i["ID","Nombre","Precio"]
             diccionario["Cantidad"]
             flag=False
@@ -270,6 +267,13 @@ def userSelect(diccionario,lista):
         print("El ID no se encuentra en la base de datos,pruebe de nuevo.")
     
     return diccionario
+
+def idNumerico(idBuscar):#Como se necesita en varios sitios de la misma manera creo funcion para comprobar que el id sea numerico y no letras.Despues se transforma a int para que se consiga leer bien.
+    while idBuscar.isalpha():
+        idBuscar=input("El ID debe ser numerico, escribelo de nuevo\n")
+    idBuscar=int(idBuscar)
+
+    return idBuscar
 
 def confirmarCompra(lista):
     pass
@@ -293,7 +297,7 @@ while tipo!="4":
                     case "3":
                         buscarPorId(listaArticulos)
                     case "4":
-                        actualizar(listaArticulos,tipo)
+                        actualizar(listaArticulos,tipo)####Nota para mi: modificar para no poder cambiar id nunca
                     case "5":
                         eliminar(listaArticulos)
                     case "6":
@@ -324,13 +328,18 @@ while tipo!="4":
                     case _:
                         print("No entendi el comando. Prueba de nuevo")
         case "3":
-            while eleccion!="7":
+            while eleccion!="8":
                 menuVentas()
+                n=0
                 eleccion=input("Elige una operacion.\n")
                 match eleccion:
                     case "1":
-                        usuarioActivo=userSelect(usuarioActivo,listaUsuarios)
-                        n=True
+                        n=1
+                        usuarioActivo=userSelect(usuarioActivo,listaUsuarios)####Nota para mi: dale una vuelta a como hacer que funcione
+                        if len(usuarioActivo)==0:
+                            print("No se ha conseguido seleccionar el usuario.")
+                        elif len(usuarioActivo)==1:
+                            n=True
                     case "2":
                         if n==True:
                             carrito.append(userSelect(producto, listaArticulos))
