@@ -298,6 +298,8 @@ while tipo!="4":
                         buscarPorId(listaArticulos)
                     case "4":
                         actualizar(listaArticulos,tipo)####Nota para mi: modificar para no poder cambiar id nunca
+                        ::
+                        ::
                     case "5":
                         eliminar(listaArticulos)
                     case "6":
@@ -336,6 +338,9 @@ while tipo!="4":
                     case "1":
                         n=1
                         usuarioActivo=userSelect(usuarioActivo,listaUsuarios)####Nota para mi: dale una vuelta a como hacer que funcione
+                        ::
+                        ::
+
                         if len(usuarioActivo)==0:
                             print("No se ha conseguido seleccionar el usuario.")
                         elif len(usuarioActivo)==1:
