@@ -7,10 +7,15 @@ user={
 }
 listaUsuarios=[
 ]
+carrito=[
+]
+registroVentas={
+}
+usuarioActivo={
+}
 eleccion=""
 tipo=""
-
-
+n=False
 
 #Definimos funciones
 
@@ -21,29 +26,31 @@ def menuUsuarios():  #Funcion para mostrar el menu de opciones de los usuario
     print("1.Crear usuario\n2.Listar usuario\n3.Buscar usuario por id.\n4.Actualizar usuario\n5.Eliminar usuario\n6.Alternar activo/inactivo\n7.Salir\n")
 
 def menuOpciones():#Función que nos permitira ir al menu de usuarios, de productos o salir de la app.
-    print("Elige el menu:\n-1.Articulos\n-2.Usuario\n-3.Salir\n")
+    print("Elige el menu:\n-1.Articulos\n-2.Usuario\n-3.Ventas/Carrito\n4.Salir\n")
+
+def menuVentas():#Funcion que nos permitira ver el menu de las opciones para las ventas y carrito
+    print("VENTAS / CARRITO\n\n1.Seleccionar usuario activo\n2.Añadir articulo al carrito\n3.Quitar articulos del carrito\n4.Ver carito (detalles y total)\n5.Confirmar compra\n6.Historial de ventas por usuario\n7.Vaciar carrito\n8.Salir")
 
 def añadirADicc(cosa,a,b): #Añade un valor al dicc, se podra usar tanto para los usuarios como para los articulos.
     cosa[a]=b
 
-
-def crear(cosa,lista,tipo): #Funcion para agregar un articulo a la lista de articulos
+def crear(cosa,lista,tipo): #Funcion para agregar un diccionario a la lista correspondiente
     if tipo=="1":
         cosa=fichaArticulo(cosa,lista)
     elif tipo=="2":
         cosa=fichaUser(cosa,lista)
     lista.append(cosa)
 
-
-def fichaArticulo(articulo): #Con un bucle while y un match case el usuario ira rellenando la ficha del articulo ESTO ES SOLO FICHA, para crear se usa la funcion crearArticulo
+def fichaArticulo(articulo,lista): #Con un bucle while y un match case el usuario ira rellenando la ficha del articulo ESTO ES SOLO FICHA, para crear se usa la funcion crearArticulo
     articulo={}              #Definimos el articulo como un diccionario vacio para rellenar
     n=0
+    m=0
     while n!=5:
         flag=True
         match n:
             case 0:
                 a="ID"
-                m+=1
+                m+=len(lista)+1
                 valor=m
                 print(f"Se ha creado articulo con ID {valor}")
                 añadirADicc(articulo,a,valor)   
@@ -118,9 +125,8 @@ def buscarPorId(lista): #Busca articulos por ID
         for i in lista:
             flag=False
             for a,b in i.items():
-                if b==idBuscar:
+                if i["ID"]==idBuscar:
                     flag=True
-                elif flag==True:
                     listar=f"{a} : {b}  "
                     valor+=listar
             if flag==True:
@@ -139,14 +145,14 @@ def actualizar(lista,tipo): #Funcion para actualizar
     if tipo=="1":
         print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Precio\n-Stock")
     if tipo=="2":
-        print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Precio\n-Stock")
+        print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Email\n")
     idBuscar=input("Escribe el id a actualizar.\n") #Busca  por ID
     param=input("Escribe el parametro a actualizar.")  
     paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
     flag=False
     for i in lista:
         flag=False
-        if n!=1:
+        if n!=1 and i["ID"]==idBuscar:
             for a,b in i.items():
                 al=a.lower()
                 if idBuscar==b:
@@ -170,7 +176,7 @@ def actualizar(lista,tipo): #Funcion para actualizar
     if flag==False and n==0:
         print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo") 
 
-def verificarMail():
+def verificarMail():#Funcion para verificar que el formato del mail es valido
     flag=True
     while flag==True:
                     valor=input(f"Escribe el email del usuario\n")
@@ -178,11 +184,15 @@ def verificarMail():
                         flag=False
                     else:
                         print(f"El email {valor} no contiente \"@\" ni \".\", vuelve a escribirlo en un formato valido.")
+    return valor
 
-def eliminarArtic(lista): #Funcion para borrar articulos por ID
+def eliminar(lista): #Funcion para borrar articulos por ID
     flag=False
     n=0
-    idBuscar=input("Escribe el id del articulo a eliminar.\n")
+    idBuscar=input("Escribe el id a eliminar.\n")
+    while idBuscar.isalpha():
+        idBuscar=input("El ID debe ser numerico, escribelo de nuevo\n")
+    idBuscar=int(idBuscar)
     for i in lista:
         flag=False
         if i["ID"]==idBuscar:
@@ -200,10 +210,10 @@ def eliminarArtic(lista): #Funcion para borrar articulos por ID
     
 def alernarStatus(lista):
     n=0
-    idBuscar=int(input("Escribe el id del articulo a cambiar su estado.\n"))
+    idBuscar=int(input("Escribe el id a cambiar su estado.\n"))
     for i in lista:
         if i["ID"]==idBuscar:
-            i["Disponibilidad"]=disponibilidad()
+            i["Activo"]=disponibilidad()
 
 
 def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuario
@@ -234,10 +244,31 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 valor=disponibilidad()
                 añadirADicc(user,a,valor)
                 n+=1
-    return user
+    return user  
 
-            
+def userSelect(diccionario,lista):
+    id=""
+    id=input("Escribe el ID del usuario a seleccionar\n")
+    while id.isalpha():
+        id=input("El ID tiene que ser numerico, prueba de nuevo")
+    id=int(id)
+    diccionario={}
+    flag=True
+    for i in lista:
+        if i["ID"] ==id and i["Activo"]==True:
+            diccionario=i["ID","Nombre","Precio"]
+            diccionario["Cantidad"]
+            flag=False
+        elif i["ID"] ==id and i["Activo"]==False:
+            print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
+            flag=False
+    if flag==False:
+        print("El ID no se encuentra en la base de datos,pruebe de nuevo.")
     
+    return diccionario
+
+def confirmarCompra(lista):
+    pass
 
 #Logica de programacion
 while tipo!="3":
@@ -260,7 +291,7 @@ while tipo!="3":
                     case "4":
                         actualizar(listaArticulos,tipo)
                     case "5":
-                        eliminarArtic(listaArticulos)
+                        eliminar(listaArticulos)
                     case "6":
                         alernarStatus(listaArticulos)
                     case "7":
@@ -281,7 +312,7 @@ while tipo!="3":
                     case "4":
                         actualizar(listaUsuarios,tipo)
                     case "5":
-                        eliminarArtic(listaUsuarios)
+                        eliminar(listaUsuarios)
                     case "6":
                         alernarStatus(listaUsuarios)
                     case "7":
@@ -289,6 +320,34 @@ while tipo!="3":
                     case _:
                         print("No entendi el comando. Prueba de nuevo")
         case "3":
+            while eleccion!="7":
+                menuVentas()
+                eleccion=input("Elige una operacion.\n")
+                match eleccion:
+                    case "1":
+                        usuarioActivo=userSelect(usuarioActivo,listaUsuarios)
+                        n=True
+                    case "2":
+                        if n==True:
+                            carrito.append(userSelect(producto, listaArticulos))
+                        if n==False:
+                            print("Se necesita tener un usuario seleccionado para agregar productos.")
+                    case "3":
+                        if len(carrito)>0:
+                            eliminar(carrito)
+                        else:
+                            print("No hay articulos para eliminar")
+                    case "4":
+                        mostrarLista(carrito)
+                    case "5":
+                        eliminar(listaUsuarios)
+                    case "6":
+                        alernarStatus(listaUsuarios)
+                    case "7":
+                        print("Sayonara baby!!")
+                    case _:
+                        print("No entendi el comando. Prueba de nuevo")
+        case "4":
             print("Hasta la vista ganster")
         case _:
             print("No entendi el comando, prueba de nuevo")
