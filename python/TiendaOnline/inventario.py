@@ -11,8 +11,8 @@ carrito=[
 ]
 registroVentas={
 }
-usuarioActivo={
-}
+usuarioActivo=[
+]
 eleccion=""
 tipo=""
 n=False
@@ -94,27 +94,31 @@ def disponibilidad():#Asignaremos un boolean para determinar si esta activo o in
     return status
 
 
-def mostrarLista(lista): #Funcion para mostrar el inventario
+def mostrarLista(lista,n): #Funcion para mostrar el inventario
+    if int(n)<3:
+        s=int(input("Escribe 1 para mostrar solo activos, 0 para los inactivos.\n")) #Se usara el numero usado para buscar True or False
+        m=""
+        if s==1:
+            m=True
+        elif s==0:
+            m=False
+        else:
+            print("Comando no valido, vuelve a probar")
+        for i in lista:
+            if i["Activo"]==m:#Solo hara el print de los articulos True or False
+                imprimirLista(i)
+    if int(n)==3:
+        for i in lista:
+            imprimirLista(i)
+                
 
+def imprimirLista(i):#
     valor=""
-    s=int(input("Escribe 1 para mostrar solo activos, 0 para los inactivos.\n")) #Se usara el numero usado para buscar True or False
-    m=""
-    if s==1:
-        m=True
-    elif s==0:
-        m=False
-    else:
-        print("Comando no valido, vuelve a probar")
-    for i in lista:
-        valor=""
-        if i["Activo"]==m:#Solo hara el print de los articulos True or False
-            for a,b in i.items():
-                    listar=f"{a} : {b}  "
-                    valor+=listar
-                    articulo=valor
-            print(articulo)
-            
-  
+    for a,b in i.items():
+        listar=f"{a} : {b}  "
+        valor+=listar
+    print(valor)
+
 def buscarPorId(lista): #Busca articulos por ID
     flag=False
     n=0
@@ -143,9 +147,9 @@ def actualizar(lista,tipo): #Funcion para actualizar
     flag=False
     n=0
     if tipo=="1":
-        print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Precio\n-Stock")
+        print("Los parametros que se pueden actualizar son:\n-Nombre\n-Precio\n-Stock")
     if tipo=="2":
-        print("Los parametros que se pueden actualizar son:\n-ID\n-Nombre\n-Email\n")
+        print("Los parametros que se pueden actualizar son:\n-Nombre\n-Email\n")
     idBuscar=input("Escribe el id a actualizar.\n") #Busca  por ID
     idBuscar=idNumerico(idBuscar)
     flag=False
@@ -154,28 +158,27 @@ def actualizar(lista,tipo): #Funcion para actualizar
         if n!=1 and i["ID"]==idBuscar:
             param=input("Escribe el parametro a actualizar.\n")  
             paraml=param.lower() #Convierto el parametro puesto a minusculas para comparar
-            for a,b in i.items():
-                al=a.lower()
-                if i["ID"]==idBuscar:
-                    flag=True
-                    if al==paraml:
-                        if tipo=="1":
-                            b=input(f"Escribe el nuevo {a}\n")
-                            if paraml=="id":
-                                b=idNumerico(b)
-                            if a=="Precio":
-                                b=float(b)
-                            i[a]=b
-                            n=1
-                        elif tipo=="2":
-                            if a=="Email":
-                                b=verificarMail()
-                            elif paraml=="id":
-                                b=idNumerico(b)
-                            else:
+            if paraml=="id":
+                print("No se puede cambiar el ID.")
+            else:
+                for a,b in i.items():
+                    al=a.lower()
+                    if i["ID"]==idBuscar:
+                        flag=True
+                        if al==paraml:
+                            if tipo=="1":
                                 b=input(f"Escribe el nuevo {a}\n")
-                            i[a]=b
-                            n=1
+                                if a=="Precio":
+                                    b=float(b)
+                                i[a]=b
+                                n=1
+                            elif tipo=="2":
+                                if a=="Email":
+                                    b=verificarMail()
+                                else:
+                                    b=input(f"Escribe el nuevo {a}\n")
+                                i[a]=b
+                                n=1
     if flag==False and n==0:
         print(f"El producto con id {idBuscar} no ha sido encontrado. Pruebe de nuevo") 
 
@@ -247,23 +250,39 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 n+=1
     return user  
 
-def userSelect(diccionario,lista,n):
+def userSelect(userLog,lista,n):
     id=""
-    id=input("Escribe el ID del usuario a seleccionar\n")
-    while id.isalpha():
-        id=input("El ID tiene que ser numerico, prueba de nuevo")
-    id=int(id)
+    id=input("Escribe el ID a seleccionar\n")
+    id=idNumerico(id)
     diccionario={}
     flag=True
+    x=0
     for i in lista:
-        if i["ID"] ==id and i["Activo"]==True and n==0:
-            diccionario=i["ID","Nombre","Precio"]
-            diccionario["Cantidad"]
-            flag=False
-        elif i["ID"] ==id and i["Activo"]==False:
-            print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
-            flag=False
-    if flag==False:
+        if n=="1":
+            if i["ID"] ==id and i["Activo"]==True:
+                userLog.clear()
+                #for a,b in i.items():
+                #    diccionario[a]=b
+                diccionario=i.copy()
+                flag=False
+            elif i["ID"] ==id and i["Activo"]==False:
+                print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
+                flag=False
+        elif n=="2":
+            if i["ID"] ==id and i["Activo"]==True:
+                x=input("¿Cuantos articulos vas a agregar?")
+                while x.isalpha():
+                    x=input("La cantidad debe ser numeros enteros.Prueba de nuevo")
+                x=int(x)
+                diccionario=i.copy()
+                diccionario["Cantidad"]=x
+                diccionario.pop("Stock")
+                diccionario.pop("Activo")
+                flag=False
+            elif i["ID"] ==id and i["Activo"]==False:
+                print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
+                flag=False
+    if flag==True:
         print("El ID no se encuentra en la base de datos,pruebe de nuevo.")
     
     return diccionario
@@ -293,13 +312,11 @@ while tipo!="4":
                     case "1":
                         crear(producto,listaArticulos,tipo)
                     case "2":
-                        mostrarLista(listaArticulos)
+                        mostrarLista(listaArticulos,tipo)
                     case "3":
                         buscarPorId(listaArticulos)
                     case "4":
                         actualizar(listaArticulos,tipo)####Nota para mi: modificar para no poder cambiar id nunca
-                        ::
-                        ::
                     case "5":
                         eliminar(listaArticulos)
                     case "6":
@@ -316,7 +333,7 @@ while tipo!="4":
                     case "1":
                         crear(user,listaUsuarios,tipo)
                     case "2":
-                        mostrarLista(listaUsuarios)
+                        mostrarLista(listaUsuarios,tipo)
                     case "3":
                         buscarPorId(listaUsuarios)
                     case "4":
@@ -332,22 +349,19 @@ while tipo!="4":
         case "3":
             while eleccion!="8":
                 menuVentas()
-                n=0
                 eleccion=input("Elige una operacion.\n")
                 match eleccion:
                     case "1":
-                        n=1
-                        usuarioActivo=userSelect(usuarioActivo,listaUsuarios)####Nota para mi: dale una vuelta a como hacer que funcione
-                        ::
-                        ::
-
-                        if len(usuarioActivo)==0:
-                            print("No se ha conseguido seleccionar el usuario.")
-                        elif len(usuarioActivo)==1:
+                        usuarioActivo.append(userSelect(usuarioActivo,listaUsuarios,eleccion))
+                        if len(usuarioActivo)>0:
                             n=True
+                        else:
+                            n=False
                     case "2":
                         if n==True:
-                            carrito.append(userSelect(producto, listaArticulos))
+                            producto=userSelect(carrito, listaArticulos,eleccion)
+                            carrito.append(producto)
+                            #carrito.append(userSelect(carrito, listaArticulos,eleccion))
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
                     case "3":
@@ -356,7 +370,7 @@ while tipo!="4":
                         else:
                             print("No hay articulos para eliminar")
                     case "4":
-                        mostrarLista(carrito)
+                        mostrarLista(carrito,tipo)
                     case "5":
                         eliminar(listaUsuarios)
                     case "6":
