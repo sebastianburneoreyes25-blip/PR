@@ -67,6 +67,7 @@ def fichaArticulo(articulo,lista): #Con un bucle while y un match case el usuari
                 valor=float(esNumerico(valor))
                 añadirADicc(articulo,a,valor)
                 n+=1
+                
             case 3:
                 a="Stock"
                 valor=input(f"Escribe el {a} del articulo\n")
@@ -82,7 +83,7 @@ def fichaArticulo(articulo,lista): #Con un bucle while y un match case el usuari
             
     return articulo
 
-def esNumerico(valor):
+def esNumerico(valor):#Nos aseguramos que sea numerico la variable dada
     while valor.isalpha():
         valor=input("El dato añadido debe de ser numerico.")
     return valor
@@ -131,10 +132,7 @@ def mostrarLista(lista,n,e): #Funcion para mostrar el inventario
                         flag=True
             if flag==False:
                 print("Id no encontrado.")
-                    
-        
-                
-
+                       
 def imprimirLista(i):#
     valor=""
     for a,b in i.items():
@@ -273,7 +271,7 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 n+=1
     return user  
 
-def userSelect(lista1,lista,n):
+def userSelect(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo, añadir producto y cantidad)
     id=""
     id=input("Escribe el ID a seleccionar\n")
     id=idNumerico(id)
@@ -281,7 +279,7 @@ def userSelect(lista1,lista,n):
     flag=True
     x=0
     for i in lista:
-        if n=="1":
+        if n=="1":#Aqui se usara lavariable apra seleccionar el ususario
             if i["ID"] ==id and i["Activo"]==True:
                 lista1.clear()
                 diccionario=i.copy()
@@ -289,7 +287,7 @@ def userSelect(lista1,lista,n):
             elif i["ID"] ==id and i["Activo"]==False:
                 print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
                 flag=False
-        elif n=="2":
+        elif n=="2":#Esta será la variable que nos permita seleccionar el item para el carrito
             if i["ID"] ==id and i["Activo"]==True:
                 x=input("¿Cuantos articulos vas a agregar?\n")
                 while x.isalpha():
