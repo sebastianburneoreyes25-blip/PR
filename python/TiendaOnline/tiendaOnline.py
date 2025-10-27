@@ -16,7 +16,7 @@ usuarioActivo=[
 eleccion=""
 tipo=""
 n=False
-
+idCarro=0
 #Definimos funciones
 
 def menuArticulos():  #Funcion para mostrar el menu de opciones de los articulos
@@ -294,7 +294,7 @@ def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo
                 while x.isalpha():
                     x=input("La cantidad debe ser numeros enteros.Prueba de nuevo\n")
                 x=int(x)
-                if len(lista1)>0:
+                if len(lista1)>0:#Cuando la lista este con algun articulo hara esta funcion
                     for j in lista1:
                         if id==j["ID"]:
                             if x<i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
@@ -310,7 +310,7 @@ def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo
                                 flag=False
                             if x>i["Stock"]:
                                 print("Cantidad mayor a la disponible.")
-                if len(lista1)==0:
+                if len(lista1)==0:  #Cuando la lista este vacia hará esta funcion
                         if x<i["Stock"]:
                             diccionario=articuloCarrito(diccionario,x,i)
                         if x>i["Stock"] :
@@ -431,8 +431,8 @@ while tipo!="4":
                             n=False
                     case "2":
                         if n==True:
+                            idCarro=0
                             producto=select(carrito, listaArticulos,eleccion)
-                            carrito.append(producto)
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
                     case "3":
