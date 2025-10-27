@@ -63,12 +63,15 @@ def fichaArticulo(articulo,lista): #Con un bucle while y un match case el usuari
 
             case 2:
                 a="Precio"
-                valor=float(input(f"Escribe el {a} del articulo\n"))
+                valor=input(f"Escribe el {a} del articulo\n")
+                valor=float(esNumerico(valor))
                 añadirADicc(articulo,a,valor)
                 n+=1
             case 3:
                 a="Stock"
                 valor=input(f"Escribe el {a} del articulo\n")
+                valor=esNumerico(valor)
+                valor=int(valor)
                 añadirADicc(articulo,a,valor)
                 n+=1
             case 4:
@@ -76,7 +79,13 @@ def fichaArticulo(articulo,lista): #Con un bucle while y un match case el usuari
                 valor=disponibilidad()
                 añadirADicc(articulo,a,valor)
                 n+=1
+            
     return articulo
+
+def esNumerico(valor):
+    while valor.isalpha():
+        valor=input("El dato añadido debe de ser numerico.")
+    return valor
                 
 def disponibilidad():#Asignaremos un boolean para determinar si esta activo o inactivo sin borrar el articulo del sistema
     disp=2
@@ -94,7 +103,8 @@ def disponibilidad():#Asignaremos un boolean para determinar si esta activo o in
     return status
 
 
-def mostrarLista(lista,n): #Funcion para mostrar el inventario
+def mostrarLista(lista,n,e): #Funcion para mostrar el inventario
+    flag=False
     if int(n)<3:
         s=int(input("Escribe 1 para mostrar solo activos, 0 para los inactivos.\n")) #Se usara el numero usado para buscar True or False
         m=""
@@ -107,9 +117,22 @@ def mostrarLista(lista,n): #Funcion para mostrar el inventario
         for i in lista:
             if i["Activo"]==m:#Solo hara el print de los articulos True or False
                 imprimirLista(i)
-    if int(n)==3:
-        for i in lista:
-            imprimirLista(i)
+    elif int(n)==3 :
+        if int(e)==4:#Para mostrar el carrito
+            for i in lista:
+                imprimirLista(i)
+        elif int(e)==6:#Para mostrar el registro de las ventas por id
+            for a,(b,c,d) in lista.items():
+                idbuscar=input("Selecciona el id a consultar")
+                idbuscar=idNumerico(idbuscar)
+                for k in c:    
+                    if idbuscar==k["ID"]:
+                        print(c)
+                        flag=True
+            if flag==False:
+                print("Id no encontrado.")
+                    
+        
                 
 
 def imprimirLista(i):#
@@ -250,7 +273,7 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 n+=1
     return user  
 
-def userSelect(userLog,lista,n):
+def userSelect(lista1,lista,n):
     id=""
     id=input("Escribe el ID a seleccionar\n")
     id=idNumerico(id)
@@ -260,9 +283,7 @@ def userSelect(userLog,lista,n):
     for i in lista:
         if n=="1":
             if i["ID"] ==id and i["Activo"]==True:
-                userLog.clear()
-                #for a,b in i.items():
-                #    diccionario[a]=b
+                lista1.clear()
                 diccionario=i.copy()
                 flag=False
             elif i["ID"] ==id and i["Activo"]==False:
@@ -270,22 +291,45 @@ def userSelect(userLog,lista,n):
                 flag=False
         elif n=="2":
             if i["ID"] ==id and i["Activo"]==True:
-                x=input("¿Cuantos articulos vas a agregar?")
+                x=input("¿Cuantos articulos vas a agregar?\n")
                 while x.isalpha():
-                    x=input("La cantidad debe ser numeros enteros.Prueba de nuevo")
+                    x=input("La cantidad debe ser numeros enteros.Prueba de nuevo\n")
                 x=int(x)
-                diccionario=i.copy()
-                diccionario["Cantidad"]=x
-                diccionario.pop("Stock")
-                diccionario.pop("Activo")
+                if len(lista1)>0:
+                    for j in lista1:
+                        if j["ID"] in lista1:
+                            if x<i["Stock"] and (j["Cantidad"]+x)<i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
+                                c=j["Cantidad"]
+                                j["Cantidad"]=int(c)+x
+                                flag=False
+                            if x>i["Stock"] or (j["Cantidad"]+x)>i["Stock"]:
+                                print("Cantidad mayor a la disponible.")
+                        if j["ID"] not in lista1:
+                            if x<i["Stock"]:
+                                diccionario=articuloCarrito(diccionario,x,i)
+                                flag=False
+                            if x>i["Stock"]:
+                                print("Cantidad mayor a la disponible.")
+                if len(lista1)==0:
+                        if x<i["Stock"]:
+                            diccionario=articuloCarrito(diccionario,x,i)
+                        if x>i["Stock"] :
+                            print("Cantidad mayor a la disponible.")
                 flag=False
             elif i["ID"] ==id and i["Activo"]==False:
                 print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
                 flag=False
     if flag==True:
-        print("El ID no se encuentra en la base de datos,pruebe de nuevo.")
+        print("El ID no se encuentra en la base de datos,pruebe de nuevo o se han seleccionado más de los existentes.")
     
     return diccionario
+
+def articuloCarrito(diccionario,x,i):#Funcion para añadir nuevo articulo al carrito.
+    diccionario=i.copy()
+    diccionario["Cantidad"]=x
+    diccionario.pop("Stock")
+    diccionario.pop("Activo")
+    return diccionario    
 
 def idNumerico(idBuscar):#Como se necesita en varios sitios de la misma manera creo funcion para comprobar que el id sea numerico y no letras.Despues se transforma a int para que se consiga leer bien.
     while idBuscar.isalpha():
@@ -294,8 +338,36 @@ def idNumerico(idBuscar):#Como se necesita en varios sitios de la misma manera c
 
     return idBuscar
 
-def confirmarCompra(lista):
-    pass
+def confirmarCompra(carro,user,reg,lista):#Funcion donde se confirmara la compra.
+    valorTotal=0
+    for i in carro:
+        valorTotal+=i["Precio"]*i["Cantidad"]
+        print(f"-{i["Nombre"]} {i["Precio"]}€ {i["Cantidad"]} Uds" )
+    print(f"El precio total a pagar sera {valorTotal}€.")
+    x=input("1 para confirmar, 0 para cancelar\n")
+    while x.isalpha():
+        x=input("Se necesta un valor númerico.\n")
+    x=int(x)
+    n=len(reg)+1
+    venta=[]
+    if x==1:
+        venta=carro.copy()#Copiamos el carro en venta
+        restaStock(lista,carro)#Restamos el stock
+        carro.clear()#Como se coonfirma la compra, se vacia el carrito
+        reg[n]=(user,venta,f"{valorTotal}€")#Se le asigna al carrito un numero unico de venta y una tupla que contenga el usuario y la lista de disccionarios de la compra.
+    else:
+        print("Se cancelo la compra.")
+
+def restaStock(lista,carro):#Funcion para restar al stock la cantidad de productos seleccionados
+    for i in lista:
+        for j in carro:
+            if i["ID"]==j["ID"]:
+                i["Stock"]-=j["Cantidad"]
+
+def vaciar(carro):
+    x=input("Se va a vaciar el carrito. Escribe 1 para confirmar vaciar el carrito, 0 para cancelar.")
+    if x=="1":
+        carro.clear()
 
 #Logica de programacion
 while tipo!="4":
@@ -312,7 +384,7 @@ while tipo!="4":
                     case "1":
                         crear(producto,listaArticulos,tipo)
                     case "2":
-                        mostrarLista(listaArticulos,tipo)
+                        mostrarLista(listaArticulos,tipo,eleccion)
                     case "3":
                         buscarPorId(listaArticulos)
                     case "4":
@@ -333,7 +405,7 @@ while tipo!="4":
                     case "1":
                         crear(user,listaUsuarios,tipo)
                     case "2":
-                        mostrarLista(listaUsuarios,tipo)
+                        mostrarLista(listaUsuarios,tipo,eleccion)
                     case "3":
                         buscarPorId(listaUsuarios)
                     case "4":
@@ -361,7 +433,6 @@ while tipo!="4":
                         if n==True:
                             producto=userSelect(carrito, listaArticulos,eleccion)
                             carrito.append(producto)
-                            #carrito.append(userSelect(carrito, listaArticulos,eleccion))
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
                     case "3":
@@ -370,13 +441,15 @@ while tipo!="4":
                         else:
                             print("No hay articulos para eliminar")
                     case "4":
-                        mostrarLista(carrito,tipo)
+                        mostrarLista(carrito,tipo,eleccion)
                     case "5":
-                        eliminar(listaUsuarios)
+                       confirmarCompra(carrito,usuarioActivo,registroVentas,listaArticulos)
                     case "6":
-                        alernarStatus(listaUsuarios)
+                        mostrarLista(registroVentas,tipo,eleccion)
                     case "7":
-                        print("Sayonara baby!!")
+                        vaciar(carrito)
+                    case "8":
+                        print("Sayonara baby!")
                     case _:
                         print("No entendi el comando. Prueba de nuevo")
         case "4":
