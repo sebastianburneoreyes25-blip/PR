@@ -123,10 +123,11 @@ def mostrarLista(lista,n,e): #Funcion para mostrar el inventario
             for i in lista:
                 imprimirLista(i)
         elif int(e)==6:#Para mostrar el registro de las ventas por id
+            idbuscar=input("Selecciona el id a consultar")
+            idbuscar=idNumerico(idbuscar)
             for a,(b,c,d) in lista.items():
-                idbuscar=input("Selecciona el id a consultar")
-                idbuscar=idNumerico(idbuscar)
-                for k in c:    
+                for k in b:  
+                    #for k in c:    
                     if idbuscar==k["ID"]:
                         print(c)
                         flag=True
@@ -271,7 +272,7 @@ def fichaUser(user,lista):#Funcion para rellenar los datos de la ficha del usuar
                 n+=1
     return user  
 
-def userSelect(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo, añadir producto y cantidad)
+def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo, añadir producto y cantidad)
     id=""
     id=input("Escribe el ID a seleccionar\n")
     id=idNumerico(id)
@@ -279,7 +280,7 @@ def userSelect(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario ac
     flag=True
     x=0
     for i in lista:
-        if n=="1":#Aqui se usara lavariable apra seleccionar el ususario
+        if n=="1":#Aqui se usara la variable para seleccionar el usuario
             if i["ID"] ==id and i["Activo"]==True:
                 lista1.clear()
                 diccionario=i.copy()
@@ -295,14 +296,15 @@ def userSelect(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario ac
                 x=int(x)
                 if len(lista1)>0:
                     for j in lista1:
-                        if j["ID"] in lista1:
-                            if x<i["Stock"] and (j["Cantidad"]+x)<i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
-                                c=j["Cantidad"]
-                                j["Cantidad"]=int(c)+x
-                                flag=False
+                        if id==j["ID"]:
+                            if x<i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
+                                c=j["Cantidad"]+x
+                                if c<=i["Stock"]:
+                                    j["Cantidad"]=int(c)
+                                    flag=False
                             if x>i["Stock"] or (j["Cantidad"]+x)>i["Stock"]:
                                 print("Cantidad mayor a la disponible.")
-                        if j["ID"] not in lista1:
+                        if id!=j["ID"]:
                             if x<i["Stock"]:
                                 diccionario=articuloCarrito(diccionario,x,i)
                                 flag=False
@@ -422,14 +424,14 @@ while tipo!="4":
                 eleccion=input("Elige una operacion.\n")
                 match eleccion:
                     case "1":
-                        usuarioActivo.append(userSelect(usuarioActivo,listaUsuarios,eleccion))
+                        usuarioActivo.append(select(usuarioActivo,listaUsuarios,eleccion))
                         if len(usuarioActivo)>0:
                             n=True
                         else:
                             n=False
                     case "2":
                         if n==True:
-                            producto=userSelect(carrito, listaArticulos,eleccion)
+                            producto=select(carrito, listaArticulos,eleccion)
                             carrito.append(producto)
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
