@@ -297,7 +297,7 @@ def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo
                 if len(lista1)>0:#Cuando la lista este con algun articulo hara esta funcion
                     for j in lista1:
                         if id==j["ID"]:
-                            if x<i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
+                            if x<=i["Stock"]:#Condicion de no dejar agregar al carrito más de los articulos que hay.
                                 c=j["Cantidad"]+x
                                 if c<=i["Stock"]:
                                     j["Cantidad"]=int(c)
@@ -311,7 +311,7 @@ def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo
                             if x>i["Stock"]:
                                 print("Cantidad mayor a la disponible.")
                 if len(lista1)==0:  #Cuando la lista este vacia hará esta funcion
-                        if x<i["Stock"]:
+                        if x<=i["Stock"]:
                             diccionario=articuloCarrito(diccionario,x,i)
                         if x>i["Stock"] :
                             print("Cantidad mayor a la disponible.")
@@ -431,8 +431,8 @@ while tipo!="4":
                             n=False
                     case "2":
                         if n==True:
-                            idCarro=0
                             producto=select(carrito, listaArticulos,eleccion)
+                            carrito.append(producto)
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
                     case "3":
