@@ -91,8 +91,8 @@ while tipo!="4":
                     case "2":
                         if n==True:
                             producto=funciones_ventas.select(carrito, listaArticulos,eleccion)
-                            if len(producto)>0:
-                                carrito.append(producto)
+                            #if producto!=None:
+                            carrito.append(producto)
                         if n==False:
                             print("Se necesita tener un usuario seleccionado para agregar productos.")
                     case "3":

@@ -71,10 +71,11 @@ def select(lista1,lista,n):#Funcion para la seleccion del usuario(Usuario activo
                     x=input("La cantidad debe ser numeros enteros.Prueba de nuevo\n")
                 x=int(x)
                 if len(lista1)>0:#Cuando la lista este con algun articulo hara esta funcion
-                    añadir2(id,lista1,x,flag,diccionario,i)
+                    diccionario=añadir2(id,lista1,x,flag,diccionario,i).copy()
+                    flag=False
                 if len(lista1)==0:  #Cuando la lista este vacia hará esta funcion
-                    añadir1(i,x,flag,diccionario)    
-                
+                    diccionario=añadir1(i,x,flag,diccionario)   
+                    flag=False
             elif i["ID"] ==id and i["Activo"]==False:
                 print("La cuenta del usuario elegido esta desactivada, pruebe con otro o cambie el estado de la cuenta.")
                 flag=False
@@ -93,16 +94,20 @@ def añadir2(id,lista1,x,flag,diccionario,i):
                     flag=False
             if x>i["Stock"] or (j["Cantidad"]+x)>i["Stock"]:
                 print("Cantidad mayor a la disponible.")
+                flag=False
         if id!=j["ID"]:
-            añadir1(i,x,flag,diccionario)
+            diccionario,flag=añadir1(i,x,flag,diccionario)
+    return diccionario
 
 def añadir1(i,x,flag,diccionario):
     if x<=i["Stock"]:
         diccionario=articuloCarrito(diccionario,x,i)
-        flag=False
+        
     if x>i["Stock"] :
         print("Cantidad mayor a la disponible.")
         
+    return diccionario
+
 
 def articuloCarrito(diccionario,x,i):#Funcion para añadir nuevo articulo al carrito.
     diccionario=i.copy()
