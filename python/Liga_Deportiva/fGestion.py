@@ -11,10 +11,10 @@ def fichaEquipo(lista):
                 datos["ID"]=id
                 print(f"Se ha generado un ID {id}")
             case 2:
-                nom=input("Escribe el nombre del equipo")
+                nom=input("Escribe el nombre del equipo\n")
                 datos["Nombre"]=nom
             case 3:
-                cit=input("Escribe la ciudad del equipo")
+                cit=input("Escribe la ciudad del equipo\n")
                 datos["Ciudad"]=cit
             case 4:
                 f=input("Equipo activo:1\nEquipo inactivo:0\n")

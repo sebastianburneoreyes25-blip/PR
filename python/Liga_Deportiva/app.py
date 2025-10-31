@@ -8,10 +8,12 @@ import tabulate
 equipos=[]
 datos={}
 jugadores=[]
+partidos=[]
 elec="0"
 listaMenu=[["-1.Gestion de equipos"],["-2.Gestion de jugadores"],["-3.Calendario y partidos"],["-4.Resultados y clasificacion"],["-5.Salir"]]
 menuGestion=[["1.Crear equipo"], ["2.Listar equipos"],["3.Buscar por id"],["4.Actualizar datos"], ["5.Eliminar equipo"], ["6.Volver al menu"]]
 menuJugadores=[["1.Alta jugador"],["2.Listar jugadores"],["3.Buscar id"],["4.Actualizar"],["5.Eliminar"],["6.Volver a menu"]]
+menuCalendarios=[["1.Crear partido"],["2.Listar partidos"], ["3.Reprogramar"], ["4.Eliminar partida"], ["5.Volver a menu"]]
 
 #Logica de programacion
 while elec!="5":
@@ -35,9 +37,11 @@ while elec!="5":
                     case 4:
                         fGenerales.modificar(equipos)
                     case 5:
-                        fGenerales.eliminarId(equipos,elec)
+                        fGenerales.eliminarId(equipos,jugadores,elec)
                     case 6:
                         print("Gusbay")
+                    case _:
+                        print("No entendi el comando")
         case "2":
             while op!=6:
                 p=0
@@ -52,10 +56,35 @@ while elec!="5":
                     case 3:
                         p=fGenerales.bucarId(jugadores)
                     case 4:
-                        fGenerales.modificar(jugadores)
+                        fGenerales.modificar(jugadores,equipos,elec)
                     case 5:
                         fGenerales.eliminarId(jugadores)
                     case 6:
                         print("Gusbay")
+                    case _:
+                        print("No entendi el comando")
+        case "3":
+            while op!=5:
+                p=0
+                fGenerales.mostrarLista(menuCalendarios)
+                op=input("Elige una opcion.\n")
+                op=fGenerales.esNumerico(op)
+                match op:
+                    case 1:
+                        fJugadores.fichaJugadores(jugadores,equipos)
+                    case 2:
+                        fJugadores.mostrarJugadores(jugadores,equipos)
+                    case 3:
+                        p=fGenerales.bucarId(jugadores)
+                    case 4:
+                        fGenerales.modificar(jugadores,equipos,elec)
+                    case 5:
+                        fGenerales.eliminarId(jugadores)
+                    case _:
+                        print("No entendi el comando")
+
+
+        case _:
+            print("No entendi ni vergas")
 
    

@@ -5,20 +5,20 @@ import fJugadores
 
 #Definimos variables
 
-status=[0,1]
+status=[True, False]
 
 
 #Definimos funciones
 
 def mostrarLista(lista):#Funcion para mostrar lista de listas.
-    print(tabulate.tabulate(lista, headers=["Menu"], tablefmt="pretty"))
+    print(tabulate.tabulate(lista, headers=["Menu"], tablefmt="double_outline", stralign="left"))
 
 def mostrarListaDic(lista):#Funcion para mostrar lista de diccionarios.
         activos=[]
         for i in lista:
             if i["Activo"]==True:
                 activos.append(i)
-        print(tabulate.tabulate(activos, headers="keys"))
+        print(tabulate.tabulate(activos, headers="keys", tablefmt="double_outline"))
 
 def bucarId(lista):#Funcion para mostrar el elemento que coincida con el id
     id=input("Escribe el id a buscar.")
@@ -39,23 +39,32 @@ def posibilidadesUpdate(n):#Funcion para definir y mostrar los datos que se podr
     
     return a
 
-def eliminarId(lista,e):#Funcion para eliminar por ID 
+def eliminarId(lista,lista2,e):#Funcion para eliminar por ID 
     mostrarListaDic(lista)
-    selec=input("Selecciona el id del equipo a eliminar")
+    selec=input("Selecciona el id a eliminar")
     selec=esNumerico(selec)
     flag=False
     for i in lista:
         if i["ID"]==selec:
-            lista.remove(i)
-
+            if e==1:
+                for j in lista2:
+                        if j["id_equipo"]==i["ID"]:
+                            if i["Activo"]==True:
+                                print("El equipo tiene jugadores asociados. No se puede eliminar")
+                        elif j["id_equipo"]!=i["ID"]:
+                            i["Activo"]=False
+            elif  e==2:
+                i["Activo"]=False
+       
 def generaraId(lista):#Funcion que generara un ID en dependencia de la longitud de la lista
     id=0
     if len(lista)==0:
-        id=len(lista)+1
+        id=1
     else:
         for i in lista:#Recorremos lista para ver el ultimo valor de id y asignarlo a la variable
             id=i["ID"]
         id+=1
+
     return id
 
     
@@ -88,8 +97,11 @@ def activoIncativo(f):
     while f not in status:
         f=input("La opciones son 1 o 0. Elige de nuevo\n")
         f=esNumerico(f)
-    if f==1:
-        f=True
-    elif f==0:
-        f=False
+    #if f==1:
+    #    f=True
+    #elif f==0:
+    #     f=False
+    f=f==1 #Funciona como lo de arriba
     return f
+
+
