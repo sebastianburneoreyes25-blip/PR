@@ -40,7 +40,7 @@ def bucarId(lista):#Funcion para mostrar el elemento que coincida con el id
         print(tabulate.tabulate(p, headers="keys"))
     elif flag==True:
         print("No existe el ID introducido")
-        
+
 def posibilidadesUpdate(n):#Funcion para definir y mostrar los datos que se podran actualizar
     a=n.copy()
     a.pop("ID")
@@ -110,13 +110,12 @@ def modificar(lista):
 def esNumerico(n):
     flag=True
     while flag==True:
-
         while n.isalpha():
             n=input("El valor debe ser numerico.")
         n=int(n)
         if n<0:
             n=input("El valor debe ser mayor a 0. Vuelve a introducir un valor valido")
-        if n>0:
+        if n>=0:
             flag=False
 
     return n

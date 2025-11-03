@@ -60,10 +60,16 @@ def ordClasif(clasif):#Funcion para ordenar la clasificacion de los equipos.
 
 def statsSimple(clasif):
     p=["ID","Nombre","PJ","PTS","DF"]
-    cl=clasif.copy()
-    for i in cl:
-        if i not in p:
-            cl.pop(i)
-    fGenerales.desplegarDic(cl)
+    id=input("Escribe el id del equipo")
+    id=fGenerales.esNumerico(id)
+    cl={}
+    for i in clasif:
+        if i["ID"]==id:
+           for a,b in i.items():
+               if a in p:
+                   cl[a]=b
+    f=[cl]
+
+    fGenerales.desplegarDic(f)
 
 

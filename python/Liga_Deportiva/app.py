@@ -98,9 +98,11 @@ while elec!="5":
                     case 2:
                         fResultados.ordClasif(clasificacion)
                     case 3:
-                        fCalendario.repPartido(partidos)
+                        fResultados.statsSimple(clasificacion)
                     case 4:
-                       fCalendario.eliminarPartido(partidos)
+                       print("Sayonara baby!!")
+                    case _:
+                        print("No entendi el comando")
         case _:
             print("No entendi ni vergas")
 
