@@ -4,17 +4,20 @@ import fJugadores
 import fGestion
 import tabulate
 import fCalendario
+import fResultados
 
 #Definimos variables
-equipos=[{"ID":1}, {"ID":2}]
+equipos=[]
 datos={}
 jugadores=[]
-partidos=[]
+partidos=[] 
 elec="0"
+clasificacion=[]
 listaMenu=[["-1.Gestion de equipos"],["-2.Gestion de jugadores"],["-3.Calendario y partidos"],["-4.Resultados y clasificacion"],["-5.Salir"]]
 menuGestion=[["1.Crear equipo"], ["2.Listar equipos"],["3.Buscar por id"],["4.Actualizar datos"], ["5.Eliminar equipo"], ["6.Volver al menu"]]
 menuJugadores=[["1.Alta jugador"],["2.Listar jugadores"],["3.Buscar id"],["4.Actualizar"],["5.Eliminar"],["6.Volver a menu"]]
 menuCalendarios=[["1.Crear partido"],["2.Listar partidos"], ["3.Reprogramar"], ["4.Eliminar partida"], ["5.Volver a menu"]]
+menuResultados=[["1.Registrar resultados"],["2.Clasificacion"],["3.Estadisticas por equipo"],["4.Volver al menu"]]
 
 #Logica de programacion
 while elec!="5":
@@ -30,11 +33,11 @@ while elec!="5":
                 op=fGenerales.esNumerico(op)
                 match op:
                     case 1:
-                        fGestion.fichaEquipo(equipos)
+                        fGestion.fichaEquipo(equipos,clasificacion)
                     case 2:
                         fGenerales.mostrarListaDic(equipos)
                     case 3:
-                        p=fGenerales.bucarId(equipos)
+                        fGenerales.bucarId(equipos)
                     case 4:
                         fGenerales.modificar(equipos)
                     case 5:
@@ -76,15 +79,28 @@ while elec!="5":
                     case 2:
                         fCalendario.mostrarCalendario(partidos)
                     case 3:
-                        fCalendario.modPartido(partidos)
+                        fCalendario.repPartido(partidos)
                     case 4:
-                       fGenerales.eliminarId(partidos,equipos,elec)
+                       fCalendario.eliminarPartido(partidos)
                     case 5:
                        print("Sayonara baby!!")
                     case _:
                         print("No entendi el comando")
-
-
+        case "4":
+            while op!=4:
+                p=0
+                fGenerales.mostrarLista(menuResultados)
+                op=input("Elige una opcion.\n")
+                op=fGenerales.esNumerico(op)
+                match op:
+                    case 1:
+                        fResultados.registrarResultados(partidos,clasificacion)
+                    case 2:
+                        fResultados.ordClasif(clasificacion)
+                    case 3:
+                        fCalendario.repPartido(partidos)
+                    case 4:
+                       fCalendario.eliminarPartido(partidos)
         case _:
             print("No entendi ni vergas")
 

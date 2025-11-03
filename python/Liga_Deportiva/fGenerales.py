@@ -20,15 +20,27 @@ def mostrarListaDic(lista):#Funcion para mostrar lista de diccionarios.
                 activos.append(i)
         print(tabulate.tabulate(activos, headers="keys", tablefmt="double_outline"))
 
+def desplegarDic(lista):#Funcion para mostrar lista de dict que no ternga el campo activo
+    activos=[]        
+    for i in lista:
+        activos.append(i)
+    print(tabulate.tabulate(activos, headers="keys", tablefmt="double_outline"))
+
+
 def bucarId(lista):#Funcion para mostrar el elemento que coincida con el id
     id=input("Escribe el id a buscar.")
     id=esNumerico(id)
+    flag=True
     for i in lista:
         if i["ID"]==id:
             p=[]
             p.append(i)
-    print(tabulate.tabulate(p, headers="keys"))
-
+            flag=False
+    if flag==False:
+        print(tabulate.tabulate(p, headers="keys"))
+    elif flag==True:
+        print("No existe el ID introducido")
+        
 def posibilidadesUpdate(n):#Funcion para definir y mostrar los datos que se podran actualizar
     a=n.copy()
     a.pop("ID")
@@ -41,21 +53,25 @@ def posibilidadesUpdate(n):#Funcion para definir y mostrar los datos que se podr
 
 def eliminarId(lista,lista2,e):#Funcion para eliminar por ID 
     mostrarListaDic(lista)
-    selec=input("Selecciona el id a eliminar")
+    selec=input("Selecciona el id a eliminar\n")
     selec=esNumerico(selec)
     flag=False
     for i in lista:
         if i["ID"]==selec:
-            if e==1:
-                for j in lista2:
-                        if j["id_equipo"]==i["ID"]:
-                            if i["Activo"]==True:
-                                print("El equipo tiene jugadores asociados. No se puede eliminar")
-                        elif j["id_equipo"]!=i["ID"]:
-                            i["Activo"]=False
-            elif  e==2:
+            if e=="1":
+                if len(lista2)==0:
+                    i["Activo"]=False
+                    print(f"Se desactivo el equipo {i["Nombre"]}")
+                else:
+                    for j in lista2:
+                            if j["id_equipo"]==i["ID"]:
+                                if i["Activo"]==True:
+                                    print("El equipo tiene jugadores asociados. No se puede eliminar")
+                            elif j["id_equipo"]!=i["ID"]:
+                                i["Activo"]=False
+            elif  e=="2":
                 i["Activo"]=False
-            elif e==3:
+            elif e=="3":
                 if i["Jugado"]==False:
                     lista.remove(i)
                 if i["Jugado"]==True:
@@ -92,9 +108,17 @@ def modificar(lista):
                 print("Dato no encontrado. No se actualizara nada, prueba de nuevo.")
 
 def esNumerico(n):
-    while n.isalpha():
-        n=input("El valor debe ser numerico")
-    n=int(n)
+    flag=True
+    while flag==True:
+
+        while n.isalpha():
+            n=input("El valor debe ser numerico.")
+        n=int(n)
+        if n<0:
+            n=input("El valor debe ser mayor a 0. Vuelve a introducir un valor valido")
+        if n>0:
+            flag=False
+
     return n
 
 def activoIncativo(f):
@@ -102,11 +126,11 @@ def activoIncativo(f):
     while f not in status:
         f=input("La opciones son 1 o 0. Elige de nuevo\n")
         f=esNumerico(f)
-    #if f==1:
-    #    f=True
-    #elif f==0:
-    #     f=False
-    f=f==1 #Funciona como lo de arriba
+    if f==1:
+        f=True
+    elif f==0:
+         f=False
+    #f=f==1 #Funciona como lo de arriba
     return f
 
 

@@ -62,7 +62,6 @@ def fichaPartido(lista,lista2):
                                             print("Operacion cancelada")
                                             cancelar=True
                                             x=1
-
                     if flag==False:
                         x=input(f"El ID {visit} no se ha encontrado. Presiona 1 para cancelar el alta, 0 para volver a introducir el ID del equipo.\n")
                         x=fGenerales.esNumerico(x)  
@@ -95,56 +94,36 @@ def mostrarCalendario(lista):#Funcion para mostrar el calendario de partidos.
             for i in lista:
                 if i["Jornada"]==jor:
                     part.append(i)
-            fGenerales.mostrarListaDic(part)
+            fGenerales.desplegarDic(part)
 
 def comprobarFecha(a):#Funcion para comprobar el formato de la fecha, que sea valido.
     a=datetime.strptime(a, "%Y:%m:%d:%H:%M")
     return  a
 
-def modPartido(lista):#Funcion para modificar partido
+def repPartido(lista):#Funcion para modificar partido
     mostrarCalendario(lista)
-    selec=input("Selecciona el id  a modificar")
+    selec=input("Selecciona el id  a reprogramar")
     selec=fGenerales.esNumerico(selec)
     flag=False
     for i in lista:
         if i["ID"]==selec and i["Jugado"]==False:
-            n=posibilidadesModCal(i).copy()
-            x=input("Selecciona una opcion a actualizar")
-            xl=x.lower()
-            for a,b in n.items():
-                al=a.lower()
-                if al==xl:
-                    if al!="id local" and al!="id visitante" and al!="jugado":
-                        i[a]=input("Pon su nuevo dato")
-                        flag=True
-                    elif al=="jugado":
-                        
-                    elif al=="id local" or al=="id visitante":
-                        l=input("Pon su nuevo dato")
-                        l=fGenerales.esNumerico(l)
-                        i[a]=l
-                        flag=True
-                        while i["ID Local"]==i["ID Visitante"]:
-                            p=input("El ID del equipo local coincide con el del visitante. Cambie uno de los dos\nElige 1 para visitante 2 para Local")
-                            p=fGenerales.esNumerico(p)
-                            id=input("Escribe el nuevo id")
-                            match p:
-                                case 1:
-                                    i["ID Visitante"]=id
-                                case 2:
-                                    i["ID Local"]=id
-                                case _:
-                                    print("Comando no valido")        
-            if flag==False:
-                print("Dato no encontrado. No se actualizara nada, prueba de nuevo.")
-        if i["ID"]==selec and i["Jugado"]==True:
-            print("No se puede modificar un partido jugado.")
+            f=input("¿En que fecha se jugará el partido? (año:mes:dia:horas:min)\n")
+            f=comprobarFecha(f)
+            i["Fecha"]=f
+        elif i["Jugado"]==True:
+            print("No se puede reprogramar un partido ya jugado.")
 
-def posibilidadesModCal(n):
-    a=n.copy()
-    a.pop("ID")
-    print("Se puede actualizar:")
-    for x,y in a.items():
-        print(f"-{x}")
-    
-    return a
+
+def eliminarPartido(lista):#Funcion para eliminar por ID el partido
+    mostrarCalendario(lista)
+    selec=input("Selecciona el id a eliminar")
+    selec=fGenerales.esNumerico(selec)
+    flag=False
+    for i in lista:
+        if i["ID"]==selec and i["Jugado"]==False:
+            lista.remove(i)
+            print(f"El partido con id {selec} ha sido eliminado")
+        elif i["Jugado"]==True:
+            print("No se puede eliminar un partido ya jugado.")
+
+
