@@ -57,5 +57,5 @@ def mostrarJugadores(lista,lista2):
                 if i["ID"]==equip:
                     for j in lista:
                         if i["ID"]==j["id_equipo"]:
-                            jug.append(i)
+                            jug.append(j)
             fGenerales.mostrarListaDic(jug)

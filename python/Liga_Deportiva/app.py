@@ -3,9 +3,10 @@ import fGenerales
 import fJugadores
 import fGestion
 import tabulate
+import fCalendario
 
 #Definimos variables
-equipos=[]
+equipos=[{"ID":1}, {"ID":2}]
 datos={}
 jugadores=[]
 partidos=[]
@@ -56,9 +57,9 @@ while elec!="5":
                     case 3:
                         p=fGenerales.bucarId(jugadores)
                     case 4:
-                        fGenerales.modificar(jugadores,equipos,elec)
+                        fGenerales.modificar(jugadores)
                     case 5:
-                        fGenerales.eliminarId(jugadores)
+                        fGenerales.eliminarId(jugadores,equipos,elec)
                     case 6:
                         print("Gusbay")
                     case _:
@@ -71,15 +72,15 @@ while elec!="5":
                 op=fGenerales.esNumerico(op)
                 match op:
                     case 1:
-                        fJugadores.fichaJugadores(jugadores,equipos)
+                        fCalendario.fichaPartido(partidos,equipos)
                     case 2:
-                        fJugadores.mostrarJugadores(jugadores,equipos)
+                        fCalendario.mostrarCalendario(partidos)
                     case 3:
-                        p=fGenerales.bucarId(jugadores)
+                        fCalendario.modPartido(partidos)
                     case 4:
-                        fGenerales.modificar(jugadores,equipos,elec)
+                       fGenerales.eliminarId(partidos,equipos,elec)
                     case 5:
-                        fGenerales.eliminarId(jugadores)
+                       print("Sayonara baby!!")
                     case _:
                         print("No entendi el comando")
 

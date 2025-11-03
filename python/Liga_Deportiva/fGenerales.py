@@ -55,6 +55,11 @@ def eliminarId(lista,lista2,e):#Funcion para eliminar por ID
                             i["Activo"]=False
             elif  e==2:
                 i["Activo"]=False
+            elif e==3:
+                if i["Jugado"]==False:
+                    lista.remove(i)
+                if i["Jugado"]==True:
+                    print("No se puede eliminar un partido jugado")
        
 def generaraId(lista):#Funcion que generara un ID en dependencia de la longitud de la lista
     id=0
