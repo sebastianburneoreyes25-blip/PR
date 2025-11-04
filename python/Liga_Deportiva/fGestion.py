@@ -1,6 +1,8 @@
+#Importamos librerias
 import fGenerales
 
-def fichaEquipo(lista,clasif):
+#Definimos funciones
+def fichaEquipo(lista,clasif):#Funcion para rellenar ficha de equipo
     n=0
     datos={}
     while n!=5:
@@ -26,7 +28,7 @@ def fichaEquipo(lista,clasif):
                 añadirClas(dc,clasif)
 
 
-def añadirClas(datos,clasif):
+def añadirClas(datos,clasif):#Funcion para añadir a la clasificacion el equipo recien creado
     datos.pop("Ciudad")
     datos.pop("Activo")
     datos["PJ"]=0
@@ -38,6 +40,4 @@ def añadirClas(datos,clasif):
     datos["DG"]=0
     datos["PTS"]=0
     clasif.append(datos)
-
                 
-

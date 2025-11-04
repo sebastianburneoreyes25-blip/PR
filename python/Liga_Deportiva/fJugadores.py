@@ -4,7 +4,7 @@ import fGenerales
 
 #Funciones para menu jugadores
 
-def fichaJugadores(lista,lista2):
+def fichaJugadores(lista,lista2):#Funciones para rellenar ficha de jugadores
     n=0
     datos={}
     while n!=6:
@@ -43,13 +43,13 @@ def fichaJugadores(lista,lista2):
                 if flag==True:
                     lista.append(datos)
 
-def mostrarJugadores(lista,lista2):
+def mostrarJugadores(lista,lista2):#Funcion para ver los jugadores 
     op=input("Escribe 1 para mostrar todos, 2 para mostrar los de un equipo especifico\n")
     op=fGenerales.esNumerico(op)
     match op:
-        case 1:
+        case 1:#Veremos lops jugadores activos
             fGenerales.mostrarListaDic(lista)
-        case 2:
+        case 2:#Veremos los jugadores por el equipo
             equip=input("Escribe el id del equipo\n")
             equip=fGenerales.esNumerico(equip)
             jug=[]

@@ -1,5 +1,8 @@
+#Definimos variables
 listaTareas={}
 action=""
+
+#Logica de programacion
 print("1.Añadir tarea\n2.Mostrar todas las tareas pendientes\n3.Marcar tarea como completada\n4.Eliminar tarea\n5.Salir")
 action=input("Introduce el número de la operacion a realizar.\n")
 action=str(action)

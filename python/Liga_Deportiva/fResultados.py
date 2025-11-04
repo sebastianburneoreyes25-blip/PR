@@ -1,7 +1,8 @@
+#Importamos libreria
 import fGenerales
 
-
-
+#Definimos funciones
+ 
 def registrarResultados(listaCal,clasif):#Funcion para registrar los resultados de un partido
     l=[]
     for i in listaCal:
@@ -21,11 +22,10 @@ def registrarResultados(listaCal,clasif):#Funcion para registrar los resultados 
             actualizarClas(i,clasif)
 
 
-
-
-def actualizarClas(partido,clasif):#Funcion para actualizar la lista de la clasificacion
+def actualizarClas(partido,clasif):#Funcion para actualizar la lista de la clasificacion con sus resultados
     for j in clasif:
-        if j["ID"]==partido["ID Local"]:
+
+        if j["ID"]==partido["ID Local"]:#Para cuando el ID sea el equipo local
             j["PJ"]+=1
             result=partido["Resultado"].copy()
             j["GF"]+=result["Goles local"]
@@ -38,7 +38,8 @@ def actualizarClas(partido,clasif):#Funcion para actualizar la lista de la clasi
             elif result["Goles local"]==result["Goles visitante"]:
                 j["E"]+=1
             j["PTS"]=(j["G"]*3)+j["E"]
-        elif j["ID"]==partido["ID Visitante"]:
+
+        elif j["ID"]==partido["ID Visitante"]:#Para cuando el ID sea el equipo visitante
             j["PJ"]+=1
             result=partido["Resultado"].copy()
             j["GF"]+=result["Goles visitante"]
@@ -55,10 +56,11 @@ def actualizarClas(partido,clasif):#Funcion para actualizar la lista de la clasi
 
 
 def ordClasif(clasif):#Funcion para ordenar la clasificacion de los equipos.
-    listaOrdenada=sorted(clasif, key=lambda x: x['PTS'], reverse=True)
+    listaOrdenada=sorted(clasif, key=lambda x: x['PTS'], reverse=True)#Ordena con la funcion sorted la lista clasif, le asignamos la key que tiene que coger para ordenar(con el key=lambda) y le damos la orden de revertir el orden para que sea descendente
     fGenerales.desplegarDic(listaOrdenada)
 
-def statsSimple(clasif):
+
+def statsSimple(clasif):#Funcion para mostrar las estadisticas simplificadas
     p=["ID","Nombre","PJ","PTS","DF"]
     id=input("Escribe el id del equipo")
     id=fGenerales.esNumerico(id)
@@ -66,10 +68,9 @@ def statsSimple(clasif):
     for i in clasif:
         if i["ID"]==id:
            for a,b in i.items():
-               if a in p:
+               if a in p:#Añadimos al dict solo lo que queremos mostrar
                    cl[a]=b
-    f=[cl]
+    f=[cl]#Se mete el dict en una lista para la expresion con tabulate
 
     fGenerales.desplegarDic(f)
-
 

@@ -4,7 +4,7 @@ import tabulate
 
 
 #Definimos funciones
-def fichaPartido(lista,lista2):
+def fichaPartido(lista,lista2):#Funcion para rellenar fichero del partido
     n=0
     datos={}
     cancelar=False
@@ -104,7 +104,6 @@ def repPartido(lista):#Funcion para modificar partido
     mostrarCalendario(lista)
     selec=input("Selecciona el id  a reprogramar")
     selec=fGenerales.esNumerico(selec)
-    flag=False
     for i in lista:
         if i["ID"]==selec and i["Jugado"]==False:
             f=input("¿En que fecha se jugará el partido? (año:mes:dia:horas:min)\n")
@@ -118,12 +117,10 @@ def eliminarPartido(lista):#Funcion para eliminar por ID el partido
     mostrarCalendario(lista)
     selec=input("Selecciona el id a eliminar")
     selec=fGenerales.esNumerico(selec)
-    flag=False
     for i in lista:
         if i["ID"]==selec and i["Jugado"]==False:
             lista.remove(i)
             print(f"El partido con id {selec} ha sido eliminado")
         elif i["Jugado"]==True:
             print("No se puede eliminar un partido ya jugado.")
-
 

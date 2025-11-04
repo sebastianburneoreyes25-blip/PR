@@ -1,7 +1,6 @@
 #Importamos librerias
 import tabulate
-import fGestion
-import fJugadores
+
 
 #Definimos variables
 
@@ -89,7 +88,7 @@ def generaraId(lista):#Funcion que generara un ID en dependencia de la longitud 
     return id
 
     
-def modificar(lista):
+def modificar(lista):#Funcion para modificar fichas
     mostrarListaDic(lista)
     selec=input("Selecciona el id  a modificar")
     selec=esNumerico(selec)
@@ -107,7 +106,7 @@ def modificar(lista):
             if flag==False:
                 print("Dato no encontrado. No se actualizara nada, prueba de nuevo.")
 
-def esNumerico(n):
+def esNumerico(n):#Funcion para comprobar que el valor añadido es un numero.
     flag=True
     while flag==True:
         while n.isalpha():
@@ -120,7 +119,7 @@ def esNumerico(n):
 
     return n
 
-def activoIncativo(f):
+def activoIncativo(f):#Funcion para comprobar que la opcion es una de las dos dadas. 
     f=esNumerico(f)
     while f not in status:
         f=input("La opciones son 1 o 0. Elige de nuevo\n")
@@ -129,7 +128,7 @@ def activoIncativo(f):
         f=True
     elif f==0:
          f=False
-    #f=f==1 #Funciona como lo de arriba
+
     return f
 
 

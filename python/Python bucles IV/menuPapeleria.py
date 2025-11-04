@@ -1,3 +1,4 @@
+#Definimos variables
 menu={
 "Papel" :( 5.0 , 800),
 "Bolis" :(0.85, 75),
@@ -9,6 +10,7 @@ menu={
 pedido={}
 total=0
 p=""
+#Logica de programacion
 print("1-Mostrar productos.\n2-Añadir producto al carrito\n3-Ver total compra\n4-Salir")
 op=input("Selecciona una opción\n")
 while op!="4":
