@@ -1,16 +1,15 @@
 import random
 
-pr=""
 
 def montruoEleccion(dict,monstruo):
     m=list(dict.keys())
     monstruo=random.choice(m)
     pr=monstruo
-    print(monstruo)
+    print(f"{monstruo} ha aparecido. ¡Preparate para cazarlo!")
     return monstruo
 
 def nivelDificultad(diff):
-    diff=random.randint(1,7)
+    diff=random.randint(2,6)
     print(diff)
     return diff
 
