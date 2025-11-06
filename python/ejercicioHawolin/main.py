@@ -1,7 +1,7 @@
 #Importamos librerias
 import fGenerales
 import fMonstruos
-import fObjetos
+
 
 #Definimos variables
 monstruos={"Vampiro":20, "Momia":11,"Ghoul":3, "Bruja":18, "Zombie":5}
@@ -15,5 +15,5 @@ presa=fMonstruos.montruoEleccion(monstruos,presa)
 dificultad=fMonstruos.nivelDificultad(monstruos)
 total=fMonstruos.difTotal(monstruos,presa,dificultad)
 while total>0 and intentos>0:
-    fObjetos.mostrarHerramientas(objetos)
+    fGenerales.mostrarHerramientas(objetos)
     total,intentos=fGenerales.ataque(objetos,total,intentos,presa)
