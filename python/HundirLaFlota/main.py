@@ -1,5 +1,6 @@
 #Importamos librerias
 import numpy as np
+import fBarcos
 
 
 #Definimos variables
@@ -11,8 +12,9 @@ barco2=np.array([1,1,1])
 barco3=np.array([1,1,1,1])
 
 #Logica de programacion
-print(tableroUser)
-print(barco1)
-print(barco2)
-print(barco3)
+fBarcos.esconderBarco(barco1, tableroBarcos)
+fBarcos.esconderBarco(barco3, tableroBarcos)
+fBarcos.esconderBarco(barco2, tableroBarcos)
+print(len(barco3))
+print(tableroBarcos)
 
