@@ -12,9 +12,6 @@ barco2=np.array([1,1,1])
 barco3=np.array([1,1,1,1])
 
 #Logica de programacion
-fBarcos.esconderBarco(barco1, tableroBarcos)
-fBarcos.esconderBarco(barco3, tableroBarcos)
-fBarcos.esconderBarco(barco2, tableroBarcos)
-print(len(barco3))
+fBarcos.starGame(barco1,barco2,barco3,tableroBarcos)
 print(tableroBarcos)
 

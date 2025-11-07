@@ -107,6 +107,11 @@ def esconderBarco(barco,tablero):
     inicioX,inicioY=posInicial(barco,tablero,eje)
     modTablero(tablero,inicioX,inicioY, eje,barco)
 
+def starGame(b1,b2,b3,tablero):
+    esconderBarco(b1, tablero)
+    esconderBarco(b2, tablero)
+    esconderBarco(b3, tablero)
+
 
     
     
