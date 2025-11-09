@@ -55,7 +55,6 @@ def modTablero(tablero, x,y, eje, barco):#Modificamos el tablero para esconder l
         tablero=barcoY(barco,tablero,x,y)
 
         
-
 def barcoX(barco,tablero,x,y):#Funcion para esconderlo en el eje X(Se coloca en horizontal)
     a=len(barco)
     match a:
@@ -65,18 +64,21 @@ def barcoX(barco,tablero,x,y):#Funcion para esconderlo en el eje X(Se coloca en 
                 while n!=2:
                     tablero[x+n,y]=1
                     n+=1
+                    
         case 3:
                 n=1
                 tablero[x,y]=1
                 while n!=3:
                     tablero[x+n,y]=1
                     n+=1
+
         case 4:
                 n=1
                 tablero[x,y]=1
                 while n!=4:
                     tablero[x+n,y]=1
                     n+=1
+
     return tablero
     
 def barcoY(barco,tablero,x,y):#Funcion para esconderlo en el eje Y(Se coloca en vertical)
@@ -88,6 +90,7 @@ def barcoY(barco,tablero,x,y):#Funcion para esconderlo en el eje Y(Se coloca en 
                 while n!=2:
                     tablero[x,y+n]=1
                     n+=1
+
         case 3:
                 n=1
                 tablero[x,y]=1
@@ -100,6 +103,7 @@ def barcoY(barco,tablero,x,y):#Funcion para esconderlo en el eje Y(Se coloca en 
                 while n!=4:
                     tablero[x,y+n]=1
                     n+=1
+
     return tablero
 
 def esconderBarco(barco,tablero):
