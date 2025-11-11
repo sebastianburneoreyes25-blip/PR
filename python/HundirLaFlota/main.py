@@ -10,12 +10,11 @@ intentos=0
 barco1=np.array([1,1])
 barco2=np.array([1,1,1])
 barco3=np.array([1,1,1,1])
-n=0
-
+s=0
 #Logica de programacion
-fBarcos.starGame(barco1,barco2,barco3,tableroBarcos)
-print(tableroBarcos)
+fBarcos.startGame(barco1,barco2,barco3,tableroBarcos)
 fJugador.bienvenida()
-while (tableroBarcos==1).any():
-    fJugador.tiro(tableroUser, tableroBarcos, intentos, n)
+while (tableroBarcos==1).any() and s!=1:
+    intentos,s=fJugador.tiro(tableroUser, tableroBarcos, intentos,s)
+fJugador.finJuego(intentos)
 print("Hasta la vista")

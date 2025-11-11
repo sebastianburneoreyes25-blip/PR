@@ -8,7 +8,7 @@ def posInicial(barco,tablero,eje):#Funcion para estableces la cordenada de inici
     if eje==0:
                 inicioX=rd.randint(0,20-a)         
                 inicioY=rd.randint(0,20-a)
-                while max(tablero[inicioX+i,inicioY]!=0 for i in range (a)):
+                while max(tablero[inicioX+i,inicioY]!=0 for i in range (a)):#Con este while (donde se comprueba mas de una posicion con el for) evitamos solapamientos.
                     inicioX=rd.randint(0,20-a)         
                     inicioY=rd.randint(0,20-a)
     elif eje==1:
@@ -34,8 +34,7 @@ def barcoX(barco,tablero,x,y):#Funcion para esconderlo en el eje X(Se coloca en 
                 tablero[x,y]=1
                 while n!=2:
                     tablero[x+n,y]=1
-                    n+=1
-                    
+                    n+=1    
         case 3:
                 n=1
                 tablero[x,y]=1
@@ -77,12 +76,12 @@ def barcoY(barco,tablero,x,y):#Funcion para esconderlo en el eje Y(Se coloca en 
 
     return tablero
 
-def esconderBarco(barco,tablero):
+def esconderBarco(barco,tablero):#Funcion para esconder los barcos
     eje=rd.randint(0,1)
     inicioX,inicioY=posInicial(barco,tablero,eje)
     modTablero(tablero,inicioX,inicioY, eje,barco)
 
-def starGame(b1,b2,b3,tablero):
+def startGame(b1,b2,b3,tablero):#Funcion que se ejecutara al empezar el juego
     esconderBarco(b1, tablero)
     esconderBarco(b2, tablero)
     esconderBarco(b3, tablero)
