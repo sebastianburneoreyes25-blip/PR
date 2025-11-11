@@ -6,46 +6,17 @@ import random as rd
 def posInicial(barco,tablero,eje):#Funcion para estableces la cordenada de inicio teniendo en cuenta el tamaño del barco
     a=len(barco)
     if eje==0:
-        match a:
-            case 2:
-                inicioX=rd.randint(0,18)         
-                inicioY=rd.randint(0,18)
+                inicioX=rd.randint(0,20-a)         
+                inicioY=rd.randint(0,20-a)
                 while max(tablero[inicioX+i,inicioY]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,18)         
-                    inicioY=rd.randint(0,18)
-            case 3:
-                inicioX=rd.randint(0,17)
-                inicioY=rd.randint(0,17)
-                while max(tablero[inicioX+i,inicioY]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,17)
-                    inicioY=rd.randint(0,17)
-            case 4:
-                inicioX=rd.randint(0,16)
-                inicioY=rd.randint(0,16)
-                while max(tablero[inicioX+i,inicioY]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,16)
-                    inicioY=rd.randint(0,16)
+                    inicioX=rd.randint(0,20-a)         
+                    inicioY=rd.randint(0,20-a)
     elif eje==1:
-         match a:
-            case 2:
-                inicioX=rd.randint(0,18)         
-                inicioY=rd.randint(0,18)
+                inicioX=rd.randint(0,20-a)         
+                inicioY=rd.randint(0,20-a)
                 while max(tablero[inicioX,inicioY+i]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,18)         
-                    inicioY=rd.randint(0,18)
-            case 3:
-                inicioX=rd.randint(0,17)
-                inicioY=rd.randint(0,17)
-                while max(tablero[inicioX,inicioY+i]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,17)
-                    inicioY=rd.randint(0,17)
-            case 4:
-                inicioX=rd.randint(0,16)
-                inicioY=rd.randint(0,16)
-                while max(tablero[inicioX,inicioY+i]!=0 for i in range (a)):
-                    inicioX=rd.randint(0,16)
-                    inicioY=rd.randint(0,16)
-         
+                    inicioX=rd.randint(0,20-a)         
+                    inicioY=rd.randint(0,20-a)
     return inicioX, inicioY
 
 def modTablero(tablero, x,y, eje, barco):#Modificamos el tablero para esconder los barcos
