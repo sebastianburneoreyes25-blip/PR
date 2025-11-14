@@ -1,5 +1,4 @@
 #Importamos librerias
-from tabulate import tabulate 
 import pvp
 import pve
 import numpy as np
@@ -40,7 +39,7 @@ def comrpobarJ1(tablero):#Comprobamos si el J1 ha ganado
     for i in range (3):
         if (tablero[:,i-1].all()==1 ):
             win1=True 
-    if np.all(np.diag(tablero)==1):
+    if np.all(diagonal==1):
         win1=True 
     if np.all(diagonalInversa==1):
         win1=True

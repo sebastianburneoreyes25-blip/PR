@@ -1,10 +1,9 @@
+#Importamos librerias
 from tabulate import tabulate
 import fGenerales
 
-
-
-
-def pvp(tablero,tableroJug,win1,win2):
+#Definimos funciones
+def pvp(tablero,tableroJug,win1,win2):#Funcion para definir como funcionara el juego personavspersona
     print(tabulate(tableroJug, tablefmt="rounded_grid"))
     win1=j1(tablero,tableroJug)
     if win1==False:
@@ -12,11 +11,10 @@ def pvp(tablero,tableroJug,win1,win2):
     return win1, win2
 
 
-def j1(tablero, tableroJug):
+def j1(tablero, tableroJug):#Funcion para colocar piezas en el tablero del J1
     win1=False
     print("Para colocar una ficha deberemos poner sus cordenadas. Empieza en la esquina superior izquierda. \nLas cordenadas van del 0 al 2 tanto en el eje horizontal como vertical." \
     "\nEmpezamos con el J1(X)")
-
     x=input("Elige la columna en la que se pondra\n")
     x=fGenerales.esNumerico(x)
     x=comprobarCord(x)
@@ -33,7 +31,7 @@ def j1(tablero, tableroJug):
         j1(tablero,tableroJug)
     return win1
     
-def j2(tablero,tableroJug):
+def j2(tablero,tableroJug):#Funcion para definir como funcionara el turno del jugador 2
     print("Para colocar una ficha deberemos poner sus cordenadas. Empieza en la esquina superior izquierda. \nLas cordenadas van del 0 al 2 tanto en el eje horizontal como vertical." \
     "\nEmpezamos con el J2(O)")
     x=input("Elige la columna en la que se pondra\n")
@@ -52,7 +50,7 @@ def j2(tablero,tableroJug):
         win2=j2(tablero,tableroJug)
     return win2
 
-def comprobarCord(a):
+def comprobarCord(a):#Funcion para que siempre se coloque dentro del tablero
     while a<0 or a>2:
         a=input("Las cordenadas validas van del 0 al 2 de izquierda a derecha. Elige de nuevo\n")
         a=fGenerales.esNumerico(a)
