@@ -34,17 +34,16 @@ def comrpobarJ1(tablero):#Comprobamos si el J1 ha ganado
     win1=False
     diagonal=np.diag(tablero)
     diagonalInversa=np.fliplr(tablero).diagonal()
-    for i in range (2):
-        if (tablero[i,:].all()==1 ):
+    for i in range (3):
+        if (tablero[i-1,:].all()==1 ):
             win1=True
-    for i in range (2):
-        if (tablero[:,i].all()==1 ):
+    for i in range (3):
+        if (tablero[:,i-1].all()==1 ):
             win1=True 
-    if (diagonal.all()==1):
+    if np.all(np.diag(tablero)==1):
+        win1=True 
+    if np.all(diagonalInversa==1):
         win1=True
-    if (diagonalInversa.all()==1):
-        win1=True
-
     return win1
 
 def comrpobarJ2(tablero):#Comprobamos si el J2 ha ganado
@@ -57,9 +56,9 @@ def comrpobarJ2(tablero):#Comprobamos si el J2 ha ganado
     for i in range (2):
         if (tablero[:,i].all()==2 ):
             win2=True
-    if diagonal.all()==2:
+    if np.all(diagonal==1):
         win2=True
-    if (diagonalInversa.all()==2):
+    if np.all(diagonalInversa==2):
         win2=True
     
     return win2
