@@ -1,5 +1,7 @@
 #importamos
 import colorama
+from tabulate import tabulate
+import numpy as np
 
 #Definimos funciones
 def bienvenida():
@@ -13,7 +15,37 @@ def esNumerico(a):
     return a
 
 def mostrarTabl(tableroUser):
-    for i in tableroUser:
-        for x in i:
-            if x=='J1':
-                print(colorama.Fore.RED+x+colorama.Style.RESET_ALL)
+    print(tabulate(tableroUser, tablefmt="fancy_grid"))
+
+def winJugador(tablero,cantidadcol,cantidadfil,jug,win1,win2):
+    for y in range(cantidadfil):
+        for x  in range(cantidadcol):
+            if tablero[cantidadfil-y-1,x]==jug:
+                if y<cantidadfil-4 and x<cantidadcol-4:
+                    n=cantidadfil-y
+                    #v=tablero[n-4:n,x]
+                    #h=tablero[n-1,x:x+4]
+                    submatriz=tablero[n-4:n,x:x+4]
+                    for i in range (4):
+                        if np.all(submatriz[i-1,:]==jug):
+                            if jug==1:
+                                win1=True
+                            if jug==2:
+                                win2=True
+                        if np.all(submatriz[:,i-1]==jug):
+                            if jug==1:
+                                win1=True
+                            if jug==2:
+                                win2=True
+                    if y<3:
+                        if np.all(np.fliplr(submatriz).diagonal()==jug):
+                            if jug==1:
+                                win1=True
+                            if jug==2:
+                                win2=True
+                        if np.all(np.diag(submatriz)==jug):
+                            if jug==1:
+                                win1=True
+                            if jug==2:
+                                win2=True
+    return win1, win2
