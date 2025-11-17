@@ -21,11 +21,14 @@ def winJugador(tablero,cantidadcol,cantidadfil,jug,win1,win2):
     for y in range(cantidadfil):
         for x  in range(cantidadcol):
             if tablero[cantidadfil-y-1,x]==jug:
-                if y<cantidadfil-4 and x<cantidadcol-4:
+                if y<cantidadfil-4 :
                     n=cantidadfil-y
                     #v=tablero[n-4:n,x]
                     #h=tablero[n-1,x:x+4]
-                    submatriz=tablero[n-4:n,x:x+4]
+                    if x<cantidadcol-4:
+                        submatriz=tablero[n-4:n,x:x+4]
+                    elif x>=cantidadcol-4:
+                        submatriz=tablero[n-4:n,cantidadcol-4:cantidadcol]                                        
                     for i in range (4):
                         if np.all(submatriz[i-1,:]==jug):
                             if jug==1:
