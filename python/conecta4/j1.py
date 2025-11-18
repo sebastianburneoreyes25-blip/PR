@@ -1,9 +1,8 @@
-
-from tabulate import tabulate
+#Importamos librerias
 import c4_core as cc
-import numpy as np
 
-def turnoJ1(tablero,tableroUser,cantidadcol, cantidaFil,win1,win2):
+#Definmos funciones
+def turnoJ1(tablero,tableroUser,cantidadcol, cantidaFil,win1,win2):#Funcion donde definimos las opciones del turno 1
     colocado=False
     jug=1
     while colocado==False:
@@ -24,6 +23,3 @@ def turnoJ1(tablero,tableroUser,cantidadcol, cantidaFil,win1,win2):
             
     cc.mostrarTabl(tableroUser)
     return win1,win2
-
-
-

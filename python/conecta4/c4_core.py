@@ -4,27 +4,26 @@ from tabulate import tabulate
 import numpy as np
 
 #Definimos funciones
-def bienvenida():
+
+def bienvenida():#Funcion de dar la bienvenida
     print("Bienvenido a conecta 4 donde el objetivo es meter una pieza en una columna y conectar 4. El Jugador 1(J1) seran fichas rojas y el jugador 2(J2) seran fichas azules ")
 
 
-def esNumerico(a):
+def esNumerico(a):#Funcion para asegurarnos que es un numero
     while a.isalpha():
         a=input("Debe ser un valor numerico\n")
     a=int(a)
     return a
 
-def mostrarTabl(tableroUser):
+def mostrarTabl(tableroUser):#Mostrar tablero con tabulate
     print(tabulate(tableroUser, tablefmt="fancy_grid"))
 
-def winJugador(tablero,cantidadcol,cantidadfil,jug,win1,win2):
+def winJugador(tablero,cantidadcol,cantidadfil,jug,win1,win2):#funcion donde determinara si el jugador que acaba de poner ficha ha ganado o no.
     for y in range(cantidadfil):
         for x  in range(cantidadcol):
             if tablero[cantidadfil-y-1,x]==jug:
                 if y<cantidadfil-4 :
                     n=cantidadfil-y
-                    #v=tablero[n-4:n,x]
-                    #h=tablero[n-1,x:x+4]
                     if x<cantidadcol-4:
                         submatriz=tablero[n-4:n,x:x+4]
                     elif x>=cantidadcol-4:
