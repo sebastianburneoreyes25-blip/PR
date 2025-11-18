@@ -1,6 +1,5 @@
 #Importamos librerias
 import numpy as np
-from tabulate import tabulate
 import c4_core as cc
 import j1
 import j2
