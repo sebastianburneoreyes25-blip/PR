@@ -1,7 +1,7 @@
-from tabulate import tabulate
+#Importamos librerias
 import c4_core as cc
 
-
+#Definimos funciones
 def turnoJ2(tablero,tableroUser,cantidadcol, cantidaFil,win1,win2):
     jug=2
     colocado=False
@@ -12,7 +12,6 @@ def turnoJ2(tablero,tableroUser,cantidadcol, cantidaFil,win1,win2):
         while x>=cantidadcol:
             x=input(f"Columna fuera de rango, recuerda poner numeros del 0 al {cantidadcol-1}. Elige de nuevo\n")
             x=cc.esNumerico
-        
         for i in range(cantidaFil):
             if tablero[(cantidaFil-i-1),x]==0 and colocado==False:
                 tablero[(cantidaFil-i-1),x]=2

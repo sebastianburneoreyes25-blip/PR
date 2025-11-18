@@ -1,5 +1,4 @@
 #importamos
-import colorama
 from tabulate import tabulate
 import numpy as np
 
