@@ -22,16 +22,20 @@ def inicioJuego(tablero,tablerouser):
                 tablerouser[y+5,x]='⚫'
 
 def movimiento(jug,tablero):
-    y=input("¿En que fila esta la ficha que vas a mover?\n")
-    y=esNumerico(y)
-    x=input("¿En que columna esta la ficha que vas a mover?\n")
-    x=esNumerico(x)
-    comprobarFicha(jug,tablero,y,x)
+   flag=False
+   while flag==False: 
+        y=input("¿En que fila esta la ficha que vas a mover?\n")
+        y=esNumerico(y)
+        x=input("¿En que columna esta la ficha que vas a mover?\n")
+        x=esNumerico(x)
+        flag=comprobarFicha(jug,tablero,y,x,flag)
 
-def comprobarFicha(jug,tablero,y,x):
+def comprobarFicha(jug,tablero,y,x,flag):
     if jug==1:
-        ()
-        
+        if tablero[y,x]==1 or tablero[y,x]==2:
+            flag=True
+        elif tablero[y,x]==3 or tablero[y,x]==4:
+            ()
 
 def esNumerico(a):
     while a.isalpha():
