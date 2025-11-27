@@ -13,5 +13,3 @@ dJ2=4
 
 #Logica de programacion
 dc.inicioJuego(tablero,tableroUser)
-dc.mostrarTablero(tableroUser)
-dc.mostrarTablero(tablero)

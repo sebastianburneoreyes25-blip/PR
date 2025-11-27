@@ -1,5 +1,5 @@
 #imporamos librerias
-
+import j1
 import numpy as np
 from tabulate import tabulate
 
@@ -29,14 +29,25 @@ def movimiento(jug,tablero):
         x=input("¿En que columna esta la ficha que vas a mover?\n")
         x=esNumerico(x)
         flag=comprobarFicha(jug,tablero,y,x,flag)
+        if flag==True:
+            moverFicha(tablero,y,x,jug)
 
 def comprobarFicha(jug,tablero,y,x,flag):
     if jug==1:
         if tablero[y,x]==1 or tablero[y,x]==2:
             flag=True
-        elif tablero[y,x]==3 or tablero[y,x]==4:
-            ()
+    if jug==2:
+        if tablero[y,x]==3 or tablero[y,x]==4:
+            flag=True
+    return flag
 
+def moverFicha(tablero,y,x,jug):
+    movValido=False
+    if jug==1:
+        j1.movimientosJ1(tablero,x,y,movValido)
+    if jug==2:
+        if tablero[y,x]==3 or tablero[y,x]==4:
+            flag=True
 def esNumerico(a):
     while a.isalpha():
         a=input("El valor debe de ser numerico. Prueba de nuevo \n")
