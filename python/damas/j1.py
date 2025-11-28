@@ -4,12 +4,16 @@ import damas_core
 #Definimos funciones
 def movimientosJ1(tablero,x,y,movValido,tablerouser):
     if tablero[y,x]==1 or tablero[y,x]==2:
-        if tablero[y,x]==1:
+        if tablero[y,x]==1:#Si la casilla seleccionada tiene un peon se realiza este código
             while movValido==False:
-                mov=input("Puedes mover la ficha en diagonal hacia abajo. Presiona 0 para la izquierda, 1 para la derecha\n")
-                mov=damas_core.esNumerico(mov)
-                rangoVal=rangoPeon(x,y,mov)
-                if mov==0 and rangoVal==True:
+                rangoVal=False
+                while rangoVal==False:#Hasta que el jugador no ponga un rango especifico no se podra salir del bucle
+                    mov=input("Puedes mover la ficha en diagonal hacia abajo. Presiona 0 para la izquierda, 1 para la derecha\n")
+                    mov=damas_core.esNumerico(mov)
+                    rangoVal=rangoPeon(x,y,mov)
+                    if rangoVal==False:
+                        print("El rango elegido no es valido. Prueba de nuevo")
+                if mov==0 :#Realizamos el movimiento, borrando el valor de la posicion anterior en el tablero y tableroUser
                     if tablero[y+1,x-1]==0:
                         tablero[y,x]=0
                         tablero[y+1,x-1]=1
@@ -17,10 +21,10 @@ def movimientosJ1(tablero,x,y,movValido,tablerouser):
                         tablerouser[y+1,x-1]="⚪"
                         x=x-1
                         y=x+1
-                        comprobacionPeon(x,y,tablero,tablerouser)
+                        comprobacionPeon(x,y,tablero,tablerouser)#comprobamos que el peon coma de manera automatica si puede
                         movValido=True
 
-                elif mov==1 and rangoVal==True:
+                elif mov==1 :
                     if tablero[y+1,x+1]==0:
                         tablero[y,x]=0
                         tablero[y+1,x+1]=1
@@ -28,14 +32,27 @@ def movimientosJ1(tablero,x,y,movValido,tablerouser):
                         tablerouser[y+1,x+1]="⚪"
                         x=x+1
                         y=x+1
-                        comprobacionPeon(x,y,tablero,tablerouser)
+                        comprobacionPeon(x,y,tablero,tablerouser)#comprobamos que el peon coma de manera automatica si puede
                         movValido=True
 
-        if tablero[y,x]==2:
+        if tablero[y,x]==2:#Si la casilla seleccionada tiene una dama, se realiza este código
             while movValido==False:
-                mov=input("Puedes mover la ficha en diagonal hacia abajo. Presiona 0 para la izquierda, 1 para la derecha\n")
-                mov=damas_core.esNumerico(mov)
-                cantidad=damas_core.esNumerico(input("¿Que cantidad de casillas quieres moverte?"))
+                rangoVal=False
+                while rangoVal==False:#Hasta que el jugador no ponga un rango especifico no se podra salir del bucle
+                    movHorizontal=damas_core.esNumerico(input("Puedes mover la ficha en diagonal hacia abajo. Presiona 0 para la izquierda, 1 para la derecha\n"))
+                    movVertical=damas_core.esNumerico(input("Puedes mover la dama hacia arriba (0) o abajo(1)\n"))
+                    cantidad=damas_core.esNumerico(input("¿Que cantidad de casillas quieres moverte?"))
+                    rangoVal=rangoDama(x,y,movHorizontal,movVertical,cantidad)
+                    if rangoVal==False:
+                        print("El rango elegido no es valido. Prueba de nuevo")
+                if movHorizontal==0 and movVertical==1:#Realizamos el movimiento, borrando el valor de la posicion anterior en el tablero y tableroUser
+                    if tablero[y+cantidad,x-cantidad]==0:
+                        tablero[y,x]=0
+                        tablero[y+cantidad,x-cantidad]=1
+                        tablerouser[y,x]='  '
+                        tablerouser[y+cantidad,x-cantidad]="⚪"
+                        x=x-1
+                        y=x+1
 
 
 
@@ -52,7 +69,9 @@ def rangoPeon(x,y,mov):#Funcion que nos comprobará si se puede hacer el movimie
 def comprobacionPeon(x,y,tablero,tablerouser):#Hará la comprobación de que el peon como automaticamente si tiene una ficha en sus diagonales y un espacio vacio donde moverse.
     flag=False
     while flag==False:
-        if x>=2 and y+2<=7:
+        #Dependiendo de en que columna se encuentre el peon vera una o dos posibilidades para comer, si esta en la columna 1 no podrá directamente comer hacia la izquierda por el tamaño del tablero
+        #y por el moviemiento(se mueve dos hacia abajo e izquierda/derecha)
+        if x>=2 and y+2<=7:#
             if tablero[y+1,x-1]>2 and tablero[y+2,x-2]==0:
                 tablero[y,x]=0
                 tablero[y+1,x-1]=0
@@ -72,7 +91,7 @@ def comprobacionPeon(x,y,tablero,tablerouser):#Hará la comprobación de que el 
                 tablerouser[y+2,x-2]="⚪"
                 y=y+2
                 x=x+2
-            else:
+            else:#Si no puede comer entrara aqui para cambiar la variable flag y salir del bucle
                 flag=True
 
         if x<2 and y+2<=7:
@@ -86,9 +105,22 @@ def comprobacionPeon(x,y,tablero,tablerouser):#Hará la comprobación de que el 
                 y=y+2
                 x=x+2
 
-            else:
+            else:#Si no puede comer entrara aqui para cambiar la variable flag y salir del bucle
                 flag=True
-        else:
+        else:#Si no puede comer entrara aqui para cambiar la variable flag y salir del bucle
             flag=True
+        
 
-def rangoDama(x,y,mov,cantidad):
+def rangoDama(x,y,movHorizontal,movVertical,cantidad):#Funcion para comprobar que la dama no se salga del tablero
+    rangoValido=False
+    if movHorizontal==0 and x-cantidad>=0:
+        if movVertical==0 and y-cantidad>=0:
+            rangoValido=True
+        if movVertical==1 and y+cantidad<=7:
+            rangoValido=True
+    if movHorizontal==1 and x+cantidad<=7:
+        if movVertical==0 and y-cantidad>=0:
+            rangoValido=True
+        if movVertical==1 and y+cantidad<=7:
+            rangoValido=True
+    return rangoValido
