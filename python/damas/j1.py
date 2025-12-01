@@ -23,6 +23,7 @@ def movimientosJ1(tablero,x,y,movValido,tablerouser):
                         y=x+1
                         comprobacionPeon(x,y,tablero,tablerouser)#comprobamos que el peon coma de manera automatica si puede
                         movValido=True
+                        damas_core.tranformacion(x,y,tablero,tablerouser)
 
                 elif mov==1 :
                     if tablero[y+1,x+1]==0:
@@ -31,9 +32,10 @@ def movimientosJ1(tablero,x,y,movValido,tablerouser):
                         tablerouser[y,x]='  '
                         tablerouser[y+1,x+1]="⚪"
                         x=x+1
-                        y=x+1
+                        y=y+1
                         comprobacionPeon(x,y,tablero,tablerouser)#comprobamos que el peon coma de manera automatica si puede
                         movValido=True
+                        damas_core.tranformacion(x,y,tablero,tablerouser)
 
         if tablero[y,x]==2:#Si la casilla seleccionada tiene una dama del jugador 1, se realiza este código
             while movValido==False:
@@ -224,3 +226,4 @@ def comprobacionDama(x,y,tablero,tablerouser):
                 flag=True
         else:#Si no puede comer entrara aqui para cambiar la variable flag y salir del bucle
             flag=True
+
