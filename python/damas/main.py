@@ -18,16 +18,16 @@ dc.inicioJuego(tablero,tableroUser)
 while fin!=True:
     jug=1
     dc.juego(jug,tablero,tableroUser)
-    if (tablero==3).any() or (tablero==4).any():
+    if (tablero==3).any() or (tablero==4).any():#Si en el tablero hay fichas del j2 será el tueno del J1
         print("Turno del J2")
         jug=2
         dc.juego(jug,tablero,tableroUser)
-        if  (tablero==1).any() or (tablero==2).any():
+        if  (tablero==1).any() or (tablero==2).any():#Si en el tablerop hay fichas del j1 sera el turno del j2
             print("Turno del J1")
-        else:
+        else:#Si no hay fichas del j1 gana el j2
             fin=True
             win=2
-    else:
+    else:#Si no hay fichas del j2 gana el j1
         fin=True
         win=1
 match win:

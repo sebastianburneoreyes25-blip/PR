@@ -1,16 +1,15 @@
 #imporamos librerias
 import j1
 import numpy as np
-from tabulate import tabulate
 import j2
 
 #Definimos funciones
-def mostrarTablero(tablero):
+def mostrarTablero(tablero):#Funcion que muestra el tablero
     print("     0    1    2    3    4    5    6    7")
     for i in range (8):
         print(f"{i} {(tablero[i,:])}")
 
-def inicioJuego(tablero,tablerouser):
+def inicioJuego(tablero,tablerouser):#Funcion que crea el tablero
     for y in range(3):
         for x in range(8):
             if (x+y)%2==0:
@@ -22,7 +21,7 @@ def inicioJuego(tablero,tablerouser):
                 tablero[y+5,x]=3
                 tablerouser[y+5,x]='⚫'
 
-def juego(jug,tablero,tableroUser):
+def juego(jug,tablero,tableroUser):#Funcion para definir el turno de uno de los jugadores
    flag=False
    while flag==False: 
         mostrarTablero(tableroUser)
@@ -34,7 +33,7 @@ def juego(jug,tablero,tableroUser):
         if flag==True:
             moverFicha(tablero,y,x,jug,tableroUser)
 
-def comprobarFicha(jug,tablero,y,x,flag):
+def comprobarFicha(jug,tablero,y,x,flag):#Comprobamos que las fichas se correspondan a el jugador en cuestion
     if jug==1:
         if tablero[y,x]==1 or tablero[y,x]==2:
             flag=True
@@ -43,7 +42,7 @@ def comprobarFicha(jug,tablero,y,x,flag):
             flag=True
     return flag
 
-def moverFicha(tablero,y,x,jug,tableroUser):
+def moverFicha(tablero,y,x,jug,tableroUser):#Funcion para mover ficha de los jugadores
     movValido=False
     if jug==1:
         j1.movimientosJ1(tablero,x,y,movValido,tableroUser)
