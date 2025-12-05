@@ -5,7 +5,7 @@ import gestorCore as gc
 #Definimos variables
 listaClientes=[]
 base=Path(__file__).resolve().parent #Esta variable nos dira la ruta donde se este ejecutando el gestor, y .parent cogera solamente el padre, es decir,
-#la carpeta donde esté el pograma independientemente del dispositivo o del SO.
+                                     #la carpeta donde esté el pograma independientemente del dispositivo o del SO.
 ruta=base/"clientes.pkl"
 menu=["1.Alta cliente","2.Listar clientes","3.Buscar cliente por DNI","4.Modificar télefono del cliente","5.Eliminar cliente","6.Guardar clientes en fichero","7.Cargar clientes en fichero","8.Salir"]
 elec=0
