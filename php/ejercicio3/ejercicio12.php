@@ -9,24 +9,25 @@
 
 <body>
     <h2>Escribe tu fecha de nacimiento</h2>
-    <form action="ejercicio12.php" method="POST">
+    <form action="ejercicio12.php" method="POST"><!--Aqui ira el "Formulario" donde introducira el dia de nacimiento-->
         <input type="date" name="fecha"><br>
         <input type="submit">
     </form>
 
     <?php
+    //Varables a tener en cuenta
     $fecha = $_POST["fecha"] ?? "";
-    $time = strtotime($fecha);
+    $time = strtotime($fecha);//comvertimos un str en tiempo formato Unix
     $mensaje = "";
     $diasSemana = ["Monday" => "Lunes", "Tuesday" => "Martes", "Wednesday" => "Miercoles", "Thursday" => "Jueves", "Friday" => "Viernes", "Saturday" => "Sábado", "Saturday" => "Domingo"];
     
     if (isset($_POST["fecha"])) {
-        //$flag=false;
-        $dia = date('l', $time);
-        foreach ($diasSemana as $day => $dias) {
-            if ($dia == $day/* and $flag=false*/) {
+        
+        $dia = date('l', $time);//Convierte el formato Unix de la fecha a un dia en ingles.
+        foreach ($diasSemana as $day => $dias) {//El array sustituira en el mensaje el dia en ingles a español
+            if ($dia == $day) {
                 $mensaje = "<h2>Naciste el $dias.</h2>";
-                //$flag=true;
+                
             }
             
         }
