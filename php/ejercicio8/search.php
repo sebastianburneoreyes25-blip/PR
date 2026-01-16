@@ -46,8 +46,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                             </tr>
                        </thead>
                        <tbody>";
-        while (!feof($lista)){
-            $contacto=fgets($lista);
+         while (($contacto = fgets($lista)) !== false){
             $contacto=trim($contacto);
             $contacto=str_replace(" ","",$contacto);
 
