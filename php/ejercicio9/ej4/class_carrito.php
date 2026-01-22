@@ -2,9 +2,9 @@
 
 
 
-class Carrito{
+class Carrito{//Definmos atributos y metodos
 
-    public $productos = [];
+    public $productos = [];//almacen de productos(array)
 
 
 
