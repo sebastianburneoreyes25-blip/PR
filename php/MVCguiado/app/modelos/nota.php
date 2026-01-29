@@ -24,7 +24,7 @@ class Nota
             if (count($partes) !== 3) {
                 throw new Exception("Linea corrupta en notas.txt: " . $linea . PHP_EOL);
             }
-            return $partes;
+            return new Nota($partes[0],$partes[1],$partes[2]);
         } catch (Throwable $e) {
             $logPath = __DIR__ . "/../../storage/error.log";
             $fecha = date("Y-m-d H:i:s");
