@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../nota.php";
+require_once __DIR__ . "/nota.php";
 
 class RepositorioNotas
 {
@@ -17,10 +17,15 @@ class RepositorioNotas
             return [];
         }
         $notas = fopen($this->path, "r");
+        $notasCargadas = [];
         while (!feof($notas)) {
-            $nota[] = Nota::crearDesdeLinea($notas);
+            $linea = fgets($notas);
+            $nota = Nota::crearDesdeLinea($linea);
+            if ($nota !== null) { // Solo agregamos si es una nota válida
+            $notasCargadas[] = $nota;
         }
-        return $nota;
+        }
+        return $notasCargadas;
     }
 
     function agregar($nota)
@@ -28,11 +33,12 @@ class RepositorioNotas
         try {
             $linea = $nota->convertirALinea();
             $final = file_put_contents($this->path, $linea, FILE_APPEND);
+            echo $this->path;
             if ($final === false) {
                 throw new Exception("No se pudo añadir linea\n");
             }
         } catch (Throwable $e) {
-            $logPath = __DIR__ . "/../../storage/error.log";
+            $logPath = __DIR__ . "/../storage/error.log";
             $fecha = date("Y-m-d H:i:s");
             $errorMsg = "[$fecha]|Agregar|" . $e->getMessage() . "|" . $e->getFile() . PHP_EOL;
             file_put_contents($logPath, $errorMsg, FILE_APPEND);

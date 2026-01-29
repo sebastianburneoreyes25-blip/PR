@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);//Controlamos errores
 error_reporting(E_ALL);
 
-require_once __DIR__. "\..\..\app\controladores\ControladorGuiado.php";
+require_once __DIR__. "\..\..\MVCguiado\app\controladores\ControladorGuiado.php";
 
 $controlador=new Controlador();
 
@@ -21,6 +21,7 @@ switch($accion){
         break;
     default:
         echo "Accion no valida";
+        break;
     
 }
 
