@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<a href="http://localhost/MVCguiado/public/index.php?accion=listar">Listar</a><br>
+<a href="http://localhost/MVCguiado/public/index.php?accion=listar">Listar</a><br><!--Redirecciona a listar o crear -->
 <a href="http://localhost/MVCguiado/public/index.php?accion=crear">Crear</a>
 
 

@@ -7,7 +7,7 @@
 </head>
 <body>
     
-<form action="index.php?accion=guardar" method="POST">
+<form action="index.php?accion=guardar" method="POST"><!--Enviamos el texto -->
 <textarea name="texto" rows="4"><?php echo htmlspecialchars($antiguos['texto'] ?? ''); ?></textarea>
 
 <br>

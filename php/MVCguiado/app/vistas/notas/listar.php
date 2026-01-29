@@ -9,7 +9,7 @@
     
 <?php
 
-$notas=new RepositorioNotas;
+$notas=new RepositorioNotas;//Creamos un objeto repositorio para usar si metodo de obtener las notas
 $notasArray=$notas->obtenerTodas();
 if(empty($notasArray)){
     echo "<h2>No hay notas :(</h2>";
