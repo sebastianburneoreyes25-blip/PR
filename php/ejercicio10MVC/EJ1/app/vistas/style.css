@@ -1,0 +1,34 @@
+  header {
+      display: flex;
+      justify-content: space-between;
+      /* Separa logo y menú */
+      align-items: center;
+      /* Centra verticalmente */
+      padding: 1rem 2rem;
+      background-color: #333;
+      color: white;
+  }
+
+
+
+  /* Menú flexible */
+  nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+      background-color: #555;
+      /* Espacio entre elementos */
+  }
+
+  nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+  }
+
+  nav a:hover {
+      background-color: #8587df;
+      border-radius: 5px;
+  }
