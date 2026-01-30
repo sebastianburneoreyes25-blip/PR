@@ -32,7 +32,7 @@ class ControladorTareas
     {
         try {
             $tareas = $this->repositorio->obtenerTareas();
-            $this->render("/tareas/listar", ['tareas' => $tareas]);
+            $this->render("/tareas/listar", ['tarea' => $tareas]);
         } catch (Throwable $e) {
             $this->registrarErrores("Listar", $e);
             $this->render('/tareas/listar', ['notas' => [], 'error' => 'No se pudieron cargar las notas']); //renderizamos listar con notas vacio y danto otro dato'error' para que imprima el mensaje.

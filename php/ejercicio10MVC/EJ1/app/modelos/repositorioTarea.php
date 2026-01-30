@@ -19,8 +19,9 @@ class RepositorioTarea
         }
         $lineasTareas = fopen($this->path, "r");
         $arrayTareas = [];
-        while (!feof($lineasTareas)) {
+       while (!feof($lineasTareas)) {
             $linea = fgets($lineasTareas);
+           //while (($linea = fgets($lineasTareas)) !== false){
             $tarea = Tarea::crearDesdeLinea($linea);
             if ($tarea !== null) {
                 $arrayTareas[] = $tarea;

@@ -25,36 +25,46 @@ class Tarea
     static function crearDesdeLinea($linea)
     {
         try {
-            $linea = trim($linea);
             if (empty($linea)) {
-                return ["Esto","No","Funciona","Joder"]; //Con esto evitamos provocar la parada del codigo por una linea vacia o fin del registro.
+            echo "Entra aqui";
+                return null; //Con esto evitamos provocar la parada del codigo por una linea vacia o fin del registro.
             }
-            $partes = explode("|", $linea);
+            /*if ($linea === false || trim($linea) === '') {
+                
+                return null;
+            }*/
+            $linea=trim($linea);
+            $partes = explode('|', $linea);
             if (count($partes) !== 4) {
                 throw new Exception("Linea corrupta en tareas.txt" . $linea);
             }
-            return new Tarea($partes[0], $partes[1], $partes[2], $partes[3]);//devolvemos objeto creado
+            return new Tarea($partes[0], $partes[1], $partes[2], $partes[3]); //devolvemos objeto creado
         } catch (Throwable $e) {
             $logPath = __DIR__ . "/../../storage/error.log";
             $fecha = date("Y-m-d H:i:s");
             $errorMsg = "[$fecha]|Crear desde linea|" . $e->getMessage() . "|" . $e->getFile() . "|" . $e->getLine() . PHP_EOL;
             file_put_contents($logPath, $errorMsg, FILE_APPEND);
-            exit;
+            echo "Error ";
+            return null;
         }
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getEstado(){
+    public function getEstado()
+    {
         return $this->estado;
     }
 
-    public function getTitulo(){
+    public function getTitulo()
+    {
         return $this->titulo;
     }
-    public function getFecha(){
+    public function getFecha()
+    {
         return $this->fechaCreacion;
     }
 }
