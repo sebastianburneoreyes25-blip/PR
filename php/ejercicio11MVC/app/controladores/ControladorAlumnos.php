@@ -121,13 +121,14 @@ class ControladorAlumnos
     function renderizar($vista, $datos = []) {
         extract($datos);
 
-        $archivoVista=__DIR__.'/../vistar/'.$vista.'.php';
+        $archivoVista=__DIR__.'/../vistas/'.$vista.'.php';
 
         if(!file_exists($archivoVista)){
             echo 'Vista no encontrada: '. $vista;
             return;
         }
         $vistaContenido=$archivoVista;
+        require_once __DIR__ . "/../vistas/layout.php";
     }
 
 }

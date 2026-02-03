@@ -9,14 +9,14 @@ class ConexionBD{
 
         if(self::$conexion===null){
             //Declaramos los atributos de la base de datos
-            $host='127.0.0.1';
+            $host='localhost';
             $baseDatos='centro';
             $usuario='root';
             $password='root123';
 
             try{
                 $dsn=
-                'mysql:host=$host;dbname=$baseDatos;charset=utf8mb4';
+                "mysql:host=$host;dbname=$baseDatos;charset=utf8mb4";
                 
                 self::$conexion=new PDO($dsn,$usuario,$password);
 
