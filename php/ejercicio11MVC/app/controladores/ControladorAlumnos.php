@@ -38,17 +38,20 @@ class ControladorAlumnos
 
     function guardar()
     {
-        if ($_SERVER['REQUEST_METHOD'] ?? 'GET' !== 'POST') {
+        
+       if ($_SERVER['REQUEST_METHOD']  !== "POST") {
             header("Location: index.php?accion=listar");
-            exit;
+            throw new Exception("Aqui revienta");
+            
         }
+        
         $nombre = trim($_POST['nombre']) ?? '';
         $email = trim($_POST['email']) ?? '';
         $edad = trim($_POST['edad']) ?? '';
 
         try {
             $this->validar($nombre, $email, $edad);
-
+            
             $alumno = new Alumno(
                 null,
                 $nombre,

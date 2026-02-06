@@ -6,7 +6,7 @@ class Alumno{//el modelo alumno solo contiene la clase y constructor del objeto 
     public $nombre;
     public $email;
     public $edad;
-    public $fechaCreación;
+    public $fechaCreacion;
 
     function __construct($id,$nombre,$email,$edad,$fechaCreacion)
     {
@@ -14,7 +14,7 @@ class Alumno{//el modelo alumno solo contiene la clase y constructor del objeto 
         $this->nombre=$nombre;
         $this->email=$email;
         $this->edad=$edad;
-        $this->fechaCreación=$fechaCreacion;
+        $this->fechaCreacion=$fechaCreacion;
 
     }
 

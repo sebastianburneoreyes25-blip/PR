@@ -14,22 +14,31 @@ class RepositorioAlumnos
         $this->conexion = ConexionBD::obtenerConexion();
     }
 
-    function insertar($alumno)
-    {
-        $sql =
-            'INSERT INTO alumnos (nombre,email,edad,fecha_creacion
+    function insertar($alumno){
+  
+    try {
+        echo "ENTRÓ A INSERTAR<br>";
+
+        $sql = 'INSERT INTO alumnos (nombre,email,edad,fecha_creacion)
                 VALUES (:nombre, :email, :edad, :fecha)';
 
         $stmt = $this->conexion->prepare($sql);
-        //consulta preparada
 
         $stmt->execute([
             ':nombre' => $alumno->nombre,
             ':email' => $alumno->email,
-            'edad' => $alumno->edad,
-            'fecha' => $alumno->fechaCreacion
+            ':edad' => $alumno->edad,
+            ':fecha' => $alumno->fechaCreacion
         ]);
+        echo "EJECUTÓ EL INSERT<br>";
+
+        echo "INSERT OK";
+    } catch (PDOException $e) {
+        echo "ERROR SQL: " . $e->getMessage();
+        exit;
     }
+    }
+
 
     function obtenerTodos()
     {

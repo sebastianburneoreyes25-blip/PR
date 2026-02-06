@@ -19,7 +19,17 @@
         </div>
         <hr>
         <?php
+        try{
         require $vistaContenido;
+        }catch(Throwable $e){
+            $log=__DIR__.'/../../storage/error.log';
+            $fecha=date('Y-m-d H:i:s');
+
+            $linea="[$fecha]|".$e->getMessage()."|".$e->getFile()."|". $e->getLine(). PHP_EOL;
+
+            file_put_contents($log,$linea,FILE_APPEND); 
+        }
+
         ?>
     </div>
 
