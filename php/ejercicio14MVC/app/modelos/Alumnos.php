@@ -1,0 +1,25 @@
+<?php
+
+
+class Alumno{//el modelo alumno solo contiene la clase y constructor del objeto alumno
+
+    public $id;
+    public $nombre;
+    public $email;
+    public $edad;
+    public $fechaCreacion;
+
+    function __construct($id,$nombre,$email,$edad,$fechaCreacion)
+    {
+        $this->id=$id;
+        $this->nombre=$nombre;
+        $this->email=$email;
+        $this->edad=$edad;
+        $this->fechaCreacion=$fechaCreacion;
+        
+
+    }
+
+}
+
+?>
