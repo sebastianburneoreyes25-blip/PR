@@ -1,0 +1,29 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . "/../app/controlador/ControladorAlumnos.php";
+
+$controlador = new ControladorAlumnos;
+
+$accion = $_GET['accion'] ?? 'listar';
+
+switch ($accion) {
+    case 'listar':
+        $controlador->listar();
+        break;
+    case 'editar':
+        $controlador->editar();
+        break;
+    case 'enviar':
+        $controlador->enviar();
+        break;
+    default:
+        echo "Acción no valida.";
+        break;
+}
+
+
+?>
