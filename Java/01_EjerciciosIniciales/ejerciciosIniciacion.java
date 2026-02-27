@@ -87,19 +87,42 @@ public class ejerciciosIniciacion {
 
     // 13. Imprime 3 comparaciones verdaderas con diferentes operadores de comparación.
 
+        e=5;
+        f=7;
+        g=8;
+        System.out.println("13. "+(e==5));
+        System.out.println("13. "+(f!=5));
+        System.out.println("13. "+(g>=5));
         
 
     // 14. Imprime 3 comparaciones falsas con diferentes operadores de comparación.
 
+        System.out.println("14. "+(e<5));
+        System.out.println("14. "+(e>5));
+        System.out.println("14. "+(e==0));
+
     // 15. Utiliza el operador lógico and.
+
+        System.out.println("15. "+(e==5 && f!=5));
 
     // 16. Utiliza el operador lógico or.
 
+        System.out.println("16. "+(e==5 || f==5));
+        
+
     // 17. Combina ambos operadores lógicos.
+
+        System.out.println("17. "+(e==5 || f==5 && g>1));
+        
 
     // 18. Añade alguna negación.
 
+        System.out.println("18. "+(e==5 && f!=5));
+
+
     // 19. Imprime 3 ejemplos de uso de operadores unarios.
+
+    
 
     // 20. Combina operadores aritméticos, de comparación y lógicos.
 
