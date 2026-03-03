@@ -122,11 +122,11 @@ public class ejerciciosIniciacion {
 
     // 19. Imprime 3 ejemplos de uso de operadores unarios.
 
-    
+    System.out.println("19. "+ e++);
 
     // 20. Combina operadores aritméticos, de comparación y lógicos.
 
-
+        System.out.println("20. "+(e+f>=5|| e==5));
 
     // Aritméticos
 
@@ -202,6 +202,7 @@ public class ejerciciosIniciacion {
 
 
         // Unarios
+        b=-10;
         System.out.println(+b);
         System.out.println(-b);
         System.out.println(++b);
