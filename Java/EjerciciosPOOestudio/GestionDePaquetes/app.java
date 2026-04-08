@@ -12,7 +12,7 @@ public class app {
         "3.Asignar paquete a repartidores", "4.Mostrar estado de paquetes","5.Mostrar incidencias",
         "6.Mostrar infromes de rendimiento", "7.Reasignar paquete","8.Salir");
         ArrayList<Paquetes> listaPaquetes=new ArrayList<>();
-        ArrayList<Repartidor> repartidores=new ArrayList<>();+
+        ArrayList<Repartidor> repartidores=new ArrayList<>();
         String eleccion ="";
         showMenu(menu);
         Scanner sc=new Scanner(System.in);
@@ -24,6 +24,8 @@ public class app {
                 System.out.println("Escribe el destino");
                 String destino=sc.nextLine();
                 System.out.println("Escribe el peso del paquete");
+                float peso=sc.nextFloat();
+                peso=Paquetes.pesoValido(peso, sc);
                 Paquetes
                 
                 break;
@@ -37,7 +39,7 @@ public class app {
 
 }
     
-    public static void showMenu(ArrayList menu){
+    public static void showMenu(ArrayList<String> menu){
         for(int i=0;i<menu.size();i++){
         System.out.println(menu.get(i));
         System.out.println("Elige una opcion");

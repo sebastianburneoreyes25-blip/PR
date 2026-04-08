@@ -45,5 +45,15 @@ public class Paquetes {
         return id;
     }
 
+    public static float pesoValido(float peso, Scanner sc){
+        while (peso<0) {
+            System.out.println("Se necesita que el peso sea un numero positivo");
+            peso=sc.nextFloat();
+        }
+        return peso;
+    }
+
+    
 
 }
+
