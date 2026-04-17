@@ -1,4 +1,3 @@
-package Java.ejerciciosHerecnaiPolimorfisamo;
 
 public class Person {
     String name;

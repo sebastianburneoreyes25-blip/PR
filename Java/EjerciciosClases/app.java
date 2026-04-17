@@ -2,7 +2,7 @@ package Java.EjerciciosClases;
 
 import java.util.ArrayList;
 
-public class main {
+public class app {
         public static void main(String[] args) {
             //1. Crea una clase Book con atributos title y author. Crea un objeto y muestra sus datos.
             Book libro=new Book("Elantris","Brandon Sanderson");
